@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Oriel — презентация</title>
+<meta name="description" content="Oriel — приложение, которое помогает понять, откуда берётся тревога, и не оставляет человека одного, когда ему плохо.">
+<meta property="og:title" content="Oriel">
+<meta property="og:description" content="Приложение, которое помогает понять, откуда берётся тревога, и не оставляет человека одного, когда ему плохо.">
+<meta property="og:image" content="screens/o01-splash.jpg">
+<meta name="theme-color" content="#050506">
+<style>*,*::before,*::after{box-sizing:border-box}body{margin:0;padding:0}img{max-width:100%}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one fixed WebGL stage (dot sphere + 3D iPhone) behind a long scroll story; text alternates sides opposite the phone. Monochrome, inverts to white for the partners chapter. */
+:root{
+  --bg:#050506; --ink:#f5f5f7; --ink2:rgba(245,245,247,.58); --ink3:rgba(245,245,247,.28); --line:rgba(245,245,247,.14);
+  --display:-apple-system,"SF Pro Display",BlinkMacSystemFont,"Inter Tight","Helvetica Neue",Arial,sans-serif;
+  --text:-apple-system,"SF Pro Text",BlinkMacSystemFont,"Inter Tight","Helvetica Neue",Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  color-scheme:dark;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--text);font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+#stage{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;transform:translateZ(0)}
+main{position:relative;z-index:1;padding-inline:max(16px,5vw)}
+.k{min-height:100vh;display:flex;align-items:center;padding-block:12vh}
+.k.L{justify-content:flex-start}
+.k.R{justify-content:flex-end}
+.k.C{justify-content:center;text-align:center}
+.blk{width:min(500px,44vw);min-width:0;display:flex;flex-direction:column;gap:18px}
+.C .blk{width:min(900px,100%);align-items:center}
+.kick{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2)}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;font-weight:600}
+h2{font-size:clamp(34px,4.4vw,64px);line-height:1.02;letter-spacing:-.035em}
+h2 .g,h3 .g{color:var(--ink3)}
+h3{font-size:clamp(26px,2.6vw,38px);line-height:1.08;letter-spacing:-.025em}
+p{margin:0;color:var(--ink2);max-width:62ch;text-wrap:pretty}
+p b{color:var(--ink);font-weight:600}
+.hero h1{font-size:clamp(88px,17vw,260px);letter-spacing:-.06em;line-height:.85;font-weight:600}
+.hero{min-height:100vh;padding-block:0;position:relative}
+.hero .blk{gap:22px;margin-top:46vh}
+.acr{font-family:var(--mono);font-size:13px;letter-spacing:.16em;color:var(--ink3);text-transform:uppercase}
+.acr b{color:var(--ink);font-weight:500}
+.lead{font-size:clamp(18px,1.6vw,22px);color:var(--ink2);max-width:40ch}
+.hint{position:absolute;left:50%;bottom:28px;translate:-50% 0;font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3);display:flex;flex-direction:column;align-items:center;gap:10px}
+.hint i{display:block;width:1px;height:38px;background:linear-gradient(var(--ink3),transparent);animation:drip 2.2s ease-in-out infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;width:100%;margin-top:14px}
+.stat{display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--line);padding-top:16px;min-width:0}
+.stat .n{font-family:var(--display);font-size:clamp(44px,5vw,76px);letter-spacing:-.045em;line-height:1;font-weight:600;font-variant-numeric:tabular-nums}
+.stat p{font-size:15px}
+.src{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--ink3)}
+.wide .blk{width:min(1060px,100%)}
+.mission h2{font-size:clamp(36px,5.2vw,78px)}
+.step{font-family:var(--mono);font-size:12px;letter-spacing:.12em;color:var(--ink3);text-transform:uppercase;display:flex;align-items:center;gap:12px}
+.step::after{content:"";height:1px;width:48px;background:var(--line)}
+.big{font-family:var(--display);font-size:clamp(70px,11vw,170px);letter-spacing:-.055em;line-height:.9;font-weight:600}
+.lines{list-style:none;padding:0;margin:4px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 28px;width:100%}
+.lines li{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:15px;min-width:0}
+.lines li span:first-child{color:var(--ink2)}
+.lines li span:last-child{font-family:var(--mono);font-size:13px;color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums}
+.note{font-size:13px;color:var(--ink3)}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);width:100%;margin-top:18px;border:1px solid var(--line)}
+.card{background:var(--bg);padding:26px 22px 30px;display:flex;flex-direction:column;gap:12px;text-align:left;min-width:0}
+.card h4{margin:0;font-family:var(--display);font-size:21px;letter-spacing:-.02em;font-weight:600;line-height:1.15}
+.card p{font-size:15px}
+.road{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;width:100%}
+.road li{display:grid;grid-template-columns:86px minmax(0,1fr);gap:16px;padding:16px 0;border-top:1px solid var(--line)}
+.road li:last-child{border-bottom:1px solid var(--line)}
+.road .t{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);padding-top:3px}
+.road .done .t{color:var(--ink)}
+.road h4{margin:0 0 4px;font-family:var(--display);font-size:19px;font-weight:600;letter-spacing:-.015em}
+.road p{font-size:15px}
+.uses{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:0;width:100%}
+.uses li{padding:16px 0;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:4px}
+.uses li:last-child{border-bottom:1px solid var(--line)}
+.uses h4{margin:0;font-family:var(--display);font-size:19px;font-weight:600;letter-spacing:-.015em}
+.uses p{font-size:15px}
+.end{min-height:100vh;align-items:flex-end;padding-bottom:14vh}
+.end .big{font-size:clamp(90px,15vw,220px)}
+.foot{font-size:12px;color:var(--ink3);max-width:70ch;margin-top:26px}
+.shot{display:none}
+.nogl .shot{display:block;width:min(300px,70vw);border-radius:36px;margin-top:10px;border:6px solid #1a1a1c}
+.nogl #stage{display:none}
+a:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+#bar{position:fixed;left:0;top:0;height:2px;width:100%;background:var(--ink);transform:scaleX(0);transform-origin:left;z-index:5;opacity:.6;will-change:transform}
+@media (max-width:980px){
+  .k.L .blk,.k.R .blk{width:52%}
+  .wide.k.L .blk{width:56%}
+  h2{font-size:clamp(26px,4.6vw,44px)}
+  h3{font-size:clamp(21px,3.4vw,30px)}
+  .blk p{font-size:15px}
+  .big{font-size:clamp(52px,10vw,110px)}
+  .stats{grid-template-columns:1fr;gap:16px}
+  .stat .n{font-size:clamp(34px,6vw,56px)}
+  .lines{grid-template-columns:1fr}
+  .cards{grid-template-columns:1fr 1fr}
+  .road li{grid-template-columns:64px minmax(0,1fr);gap:10px}
+  .step::after{display:none}
+}
+@media (max-width:430px){
+  body{font-size:16px}
+  .k{min-height:115vh;align-items:flex-end;padding-block:6vh 8vh}
+  .k.L,.k.R{justify-content:stretch}
+  .blk,.C .blk{width:100%}
+  .k.L .blk,.k.R .blk{--cut:-9999px;-webkit-mask-image:linear-gradient(to bottom,transparent var(--cut),#000 calc(var(--cut) + 64px));mask-image:linear-gradient(to bottom,transparent var(--cut),#000 calc(var(--cut) + 64px))}
+  .k.L,.k.R{min-height:100vh;padding-block:0 7vh}
+  .k.L .blk,.k.R .blk,.wide.k.L .blk{width:100%}
+  .hero .blk{margin-top:52vh}
+  .stats{grid-template-columns:1fr;gap:18px}
+  .lines{grid-template-columns:1fr}
+  .cards{grid-template-columns:1fr 1fr}
+  .road li{grid-template-columns:70px minmax(0,1fr)}
+  .problem,.mission,.princ,.grant{align-items:center}
+}
+@media (max-width:460px){.cards{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hint i{animation:none}}
+</style>
+</head>
+<body>
+
+<div id="bar"></div>
+<canvas id="stage" aria-hidden="true"></canvas>
+
+<main>
+  <section class="k C hero" data-k="hero">
+    <div class="blk">
+      <h1>Oriel</h1>
+      <div class="acr"><b>O</b>bserve · <b>R</b>ecognize · <b>I</b>nsight · <b>E</b>ase · <b>L</b>ive</div>
+      <p class="lead">Приложение, которое помогает понять, откуда берётся тревога, и не оставляет человека одного, когда ему плохо.</p>
+    </div>
+    <div class="hint">Листайте<i></i></div>
+  </section>
+
+  <section class="k L wide problem" data-k="problem">
+    <div class="blk">
+      <div class="kick">Проблема</div>
+      <h2>Тревога есть почти у каждого. <span class="g">Помощь получает меньшинство.</span></h2>
+      <div class="stats">
+        <div class="stat"><div class="n">301 млн</div><p>человек в мире живут с тревожным расстройством. Это самое частое психическое расстройство.</p><div class="src">ВОЗ</div></div>
+        <div class="stat"><div class="n">1 из 4</div><p>людей с тревожным расстройством получает хоть какое-то лечение.</p><div class="src">ВОЗ, 2023</div></div>
+        <div class="stat"><div class="n">18,2%</div><p>взрослых в США в 2022 году отмечали у себя симптомы тревоги.</p><div class="src">CDC · NCHS</div></div>
+      </div>
+      <p>Тревога редко появляется на пустом месте. Её подпитывают короткий сон, нагрузка, кофеин, ссоры. Человек обычно не видит этой связи, а приступ случается тогда, когда рядом никого нет.</p>
+    </div>
+  </section>
+
+  <section class="k C mission" data-k="mission">
+    <div class="blk">
+      <div class="kick">Миссия</div>
+      <h2>Чтобы человек понимал, что с ним происходит, <span class="g">и знал, куда обратиться, в какой бы стране он ни был.</span></h2>
+      <p>Oriel не заменяет психолога. Он собирает данные о сне, пульсе и настроении, находит в них закономерности и в тяжёлый момент показывает, куда позвонить.</p>
+    </div>
+  </section>
+
+  <section class="k L" data-k="p1" data-screen="a01-today">
+    <div class="blk">
+      <div class="step">Как это работает · 1 из 5</div>
+      <h3>Весь день на одном экране</h3>
+      <p>Утром человек видит, как спал, какой сегодня фон тревоги и что на него влияет. Сон и пульс приходят сами из Apple Health и Health Connect, а это почти любые часы и браслеты.</p>
+    </div>
+  </section>
+
+  <section class="k R" data-k="p2" data-screen="a06-evening">
+    <div class="blk">
+      <div class="step">Как это работает · 2 из 5</div>
+      <h3>Две короткие отметки в день</h3>
+      <p>Утром сон и самочувствие, около 15 секунд. Вечером настроение, тревога по шкале от 1 до 5 и то, что повлияло на день: кофе, спорт, работа, общение. Около 30 секунд.</p>
+    </div>
+  </section>
+
+  <section class="k L" data-k="p3" data-screen="a04-forecast">
+    <div class="blk">
+      <div class="step">Как это работает · 3 из 5</div>
+      <h3>Прогноз на день</h3>
+      <p>Каждое утро Oriel сравнивает сон, пульс в покое и вариабельность пульса с личной нормой человека и говорит, насколько велик риск тревожного дня. И даёт один конкретный совет, например перенести кофе на утро.</p>
+    </div>
+  </section>
+
+  <section class="k R" data-k="p4" data-screen="a07-stats">
+    <div class="blk">
+      <div class="step">Как это работает · 4 из 5</div>
+      <h3>Что на самом деле влияет</h3>
+      <p>Через пару недель становится видно, что тревога растёт после коротких ночей или в дни с кофеином. Закономерности считаются по данным самого человека, а не по средним цифрам.</p>
+    </div>
+  </section>
+
+  <section class="k L" data-k="p5" data-screen="a11-reports">
+    <div class="blk">
+      <div class="step">Как это работает · 5 из 5</div>
+      <h3>Разбор недели</h3>
+      <p>В воскресенье приходит отчёт простым языком: что изменилось и что попробовать дальше. Цифры считает код, ИИ только объясняет их словами.</p>
+    </div>
+  </section>
+
+  <section class="k L" data-k="h0">
+    <div class="blk">
+      <div class="kick">Главная функция</div>
+      <div class="big">Как ты?</div>
+      <p>Часы видят то, что человек иногда не замечает сам: пульс заметно выше его нормы, хотя он сидит на месте. В этот момент Oriel спрашивает, всё ли в порядке.</p>
+    </div>
+  </section>
+
+  <section class="k L" data-k="h1" data-screen="a19-notif">
+    <div class="blk">
+      <div class="step">Помощь · 1 из 4</div>
+      <h3>Вопрос, а не тревожный сигнал</h3>
+      <p>Уведомление с тремя ответами: «Нужна помощь», «Была тренировка», «Всё нормально». Ответы учат систему, и со временем ложных срабатываний становится меньше.</p>
+    </div>
+  </section>
+
+  <section class="k R" data-k="h2" data-screen="a16-breath">
+    <div class="blk">
+      <div class="step">Помощь · 2 из 4</div>
+      <h3>Сначала дыхание</h3>
+      <p>«Нужна помощь» сразу открывает дыхательное упражнение. Сфера растёт на вдохе и сжимается на выдохе: 4 секунды вдох, 4 задержка, 6 выдох. Медленный выдох помогает снизить пульс за несколько минут.</p>
+    </div>
+  </section>
+
+  <section class="k L" data-k="h3" data-screen="a17-breath-help">
+    <div class="blk">
+      <div class="step">Помощь · 3 из 4</div>
+      <h3>Потом живые люди</h3>
+      <p>Сверху всегда есть строка «Позвать помощь». Она открывает линии психологической помощи той страны, где находится человек. Позвонить можно одним касанием.</p>
+    </div>
+  </section>
+
+  <section class="k R" data-k="h4" data-screen="m09-crisis">
+    <div class="blk">
+      <div class="step">Помощь · 4 из 4</div>
+      <h3>Решает всегда человек</h3>
+      <p>Oriel никогда не звонит сам и никому не передаёт данные. Функции помощи бесплатны для всех и навсегда, подписка на них не влияет.</p>
+    </div>
+  </section>
+
+  <section class="k L" data-k="partners">
+    <div class="blk">
+      <div class="kick">Партнёры</div>
+      <h2>Помощь работает, <span class="g">только если за ней стоят люди в каждой стране.</span></h2>
+      <p>В каждой стране свои линии помощи, свои номера, языки и часы работы. Мы хотим договориться с организациями, которые уже помогают людям, чтобы в Oriel был проверенный номер для каждой страны.</p>
+      <p class="note">Например, к таким линиям:</p>
+      <ul class="lines">
+        <li><span>США и Канада · 988</span><span>988</span></li>
+        <li><span>Великобритания · Samaritans</span><span>116 123</span></li>
+        <li><span>Германия · TelefonSeelsorge</span><span>0800 111 0 111</span></li>
+        <li><span>Франция</span><span>3114</span></li>
+        <li><span>Испания</span><span>024</span></li>
+        <li><span>Австралия · Lifeline</span><span>13 11 14</span></li>
+        <li><span>Бразилия · CVV</span><span>188</span></li>
+        <li><span>Индия · Tele-MANAS</span><span>14416</span></li>
+      </ul>
+      <p>Партнёр получает обращения в тот момент, когда помощь нужнее всего. Номер и часы работы в приложении всегда совпадают с настоящими.</p>
+    </div>
+  </section>
+
+  <section class="k C wide princ" data-k="princ">
+    <div class="blk">
+      <div class="kick">Почему это имеет смысл</div>
+      <h2>Не ещё один дневник настроения</h2>
+      <div class="cards">
+        <div class="card"><h4>Данные, а не только ощущения</h4><p>Сон и пульс с часов дополняют то, что человек отмечает сам. Тревогу видно в цифрах.</p></div>
+        <div class="card"><h4>Помощь в моменте</h4><p>Обычные трекеры показывают графики задним числом. Oriel реагирует, когда плохо прямо сейчас.</p></div>
+        <div class="card"><h4>Главное бесплатно</h4><p>Отметки, история за неделю, дыхание и линии помощи бесплатны. Подписка открывает полный анализ.</p></div>
+        <div class="card"><h4>Данные остаются у человека</h4><p>Мы не продаём данные и не показываем рекламу. Выгрузить или удалить всё можно в один шаг.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="k L" data-k="road" data-screen="o01-splash">
+    <div class="blk">
+      <div class="kick">Где мы сейчас</div>
+      <h2>Дизайн готов. <span class="g">Начали сборку.</span></h2>
+      <ul class="road">
+        <li class="done"><span class="t">Готово</span><div><h4>Функционал и дизайн</h4><p>Продуманы все экраны, первая сборка уже запускается на iPhone.</p></div></li>
+        <li><span class="t">Этап 1</span><div><h4>Приложение для iOS и Android</h4><p>Отметки, Apple Health и Health Connect, прогноз дня, «Как ты?», дыхание, линии помощи.</p></div></li>
+        <li><span class="t">Этап 2</span><div><h4>Apple Watch</h4><p>Сигнал «Как ты?» в реальном времени, прямо на запястье.</p></div></li>
+        <li><span class="t">Этап 3</span><div><h4>Своя модель прогноза</h4><p>Обучена на обезличенных данных тех, кто дал согласие.</p></div></li>
+        <li><span class="t">Этап 4</span><div><h4>Сеть партнёров</h4><p>Проверенные линии помощи в каждой стране, где работает Oriel. Начинаем с США и Европы.</p></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="k L grant" data-k="grant">
+    <div class="blk">
+      <div class="kick">Грант</div>
+      <h2>На что пойдут деньги</h2>
+      <ul class="uses">
+        <li><h4>Разработка</h4><p>Приложение для iOS и Android, затем версия для Apple Watch.</p></li>
+        <li><h4>Линии помощи</h4><p>Проверка номеров, договорённости с организациями, переводы на языки этих стран.</p></li>
+        <li><h4>Клиническая экспертиза</h4><p>Консультации психологов: прогноз, тексты, сценарии помощи в кризисе.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="k C end" data-k="end">
+    <div class="blk">
+      <div class="big">Oriel</div>
+      <p class="lead">Окно во внутренний мир.</p>
+      <p class="foot">Oriel не является медицинским изделием и не ставит диагнозов. Если есть угроза жизни, звоните в экстренную службу своей страны. Экраны в презентации взяты из рабочего прототипа.</p>
+    </div>
+  </section>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="land.js"></script>
+<script>
+(function(){
+var canvas=document.getElementById('stage');
+var SCREENS=['a01-today','a04-forecast','a06-evening','a07-stats','a11-reports','a19-notif','a16-breath','a17-breath-help','m09-crisis','o01-splash'];
+function noGL(){
+  document.documentElement.classList.add('nogl');
+  document.querySelectorAll('[data-screen]').forEach(function(s){var i=document.createElement('img');i.className='shot';i.alt='';i.src='screens/'+s.dataset.screen+'.jpg';s.querySelector('.blk').appendChild(i);});
+}
+var renderer;
+try{ if(!window.THREE) throw 0; renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:true}); }catch(e){ noGL(); return; }
+var PR=Math.min(window.devicePixelRatio||1,innerWidth<700?2:1.75);
+renderer.setPixelRatio(PR);
+renderer.outputEncoding=THREE.sRGBEncoding;
+renderer.toneMapping=THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure=1.05;
+renderer.setClearColor(0x000000,0);
+
+var scene=new THREE.Scene();
+var camera=new THREE.PerspectiveCamera(30,1,.1,100);
+camera.position.set(0,0,7);
+
+// studio environment for reflections
+(function(){
+  var pm=new THREE.PMREMGenerator(renderer), rs=new THREE.Scene();
+  var room=new THREE.Mesh(new THREE.BoxGeometry(12,12,12),new THREE.MeshBasicMaterial({color:0x1a1a1c,side:THREE.BackSide}));rs.add(room);
+  function panel(w,h,c,x,y,z,rx,ry){var m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({color:new THREE.Color(c,c,c),side:THREE.DoubleSide}));m.position.set(x,y,z);m.rotation.set(rx,ry,0);rs.add(m);}
+  panel(8,2.2,7,0,5.8,0,Math.PI/2,0);
+  panel(1.4,8,4,-5.8,0,1,0,Math.PI/2);
+  panel(.8,8,2.5,5.8,0,-1,0,-Math.PI/2);
+  panel(5,1,1.6,0,-1,5.8,0,Math.PI);
+  panel(.25,9,9,-3,0,-5.8,0,0);panel(.25,9,6,3.2,0,-5.8,0,0);panel(10,.3,5,0,-5.8,0,-Math.PI/2,0);
+  scene.environment=pm.fromScene(rs,.035).texture;
+})();
+var key=new THREE.DirectionalLight(0xffffff,1.1);key.position.set(-3,4,5);scene.add(key);
+scene.add(new THREE.AmbientLight(0xffffff,.12));var rim=new THREE.DirectionalLight(0xffffff,.9);rim.position.set(4,1,-4);scene.add(rim);
+
+function rrect(w,h,r){var s=new THREE.Shape(),x=-w/2,y=-h/2;s.moveTo(x+r,y);s.lineTo(x+w-r,y);s.quadraticCurveTo(x+w,y,x+w,y+r);s.lineTo(x+w,y+h-r);s.quadraticCurveTo(x+w,y+h,x+w-r,y+h);s.lineTo(x+r,y+h);s.quadraticCurveTo(x,y+h,x,y+h-r);s.lineTo(x,y+r);s.quadraticCurveTo(x,y,x+r,y);return s;}
+function flatUV(geo,w,h){var p=geo.attributes.position,uv=geo.attributes.uv;for(var i=0;i<p.count;i++)uv.setXY(i,(p.getX(i)+w/2)/w,(p.getY(i)+h/2)/h);uv.needsUpdate=true;return geo;}
+
+// ---------- iPhone (17 Pro proportions: 71.9 x 150 x 8.75 mm, black titanium) ----------
+function sq(w,h,r){ // continuous-curvature ("squircle") rounded rect, like Apple's corners
+  var s=new THREE.Shape(),x=-w/2,y=-h/2,k=1.28*r,c=.18*r;
+  s.moveTo(x+k,y);s.lineTo(x+w-k,y);s.bezierCurveTo(x+w-c,y,x+w,y+c,x+w,y+k);
+  s.lineTo(x+w,y+h-k);s.bezierCurveTo(x+w,y+h-c,x+w-c,y+h,x+w-k,y+h);
+  s.lineTo(x+k,y+h);s.bezierCurveTo(x+c,y+h,x,y+h-c,x,y+h-k);
+  s.lineTo(x,y+k);s.bezierCurveTo(x,y+c,x+c,y,x+k,y);return s;}
+var phone=new THREE.Group();scene.add(phone);
+var W=1,H=2.086,R=.205,D=.122,b=.04;
+var metal=new THREE.MeshPhysicalMaterial({color:0x3c3c40,metalness:1,roughness:.28,clearcoat:.6,clearcoatRoughness:.18});
+var bodyG=new THREE.ExtrudeGeometry(sq(W-2*b,H-2*b,R-b),{depth:D-2*b,bevelEnabled:true,bevelThickness:b,bevelSize:b,bevelSegments:14,curveSegments:48});
+bodyG.translate(0,0,-(D-2*b)/2);phone.add(new THREE.Mesh(bodyG,metal));
+// antenna bands: thin dark strips across the frame
+var bandM=new THREE.MeshPhysicalMaterial({color:0x111113,roughness:.6,metalness:0});
+[[1,1],[1,-1],[-1,1],[-1,-1]].forEach(function(s){var m=new THREE.Mesh(new THREE.BoxGeometry(.012,.014,D*.62),bandM);m.position.set(s[0]*(W/2+.0005),s[1]*(H/2-.16),0);phone.add(m);});
+[1,-1].forEach(function(s){var m=new THREE.Mesh(new THREE.BoxGeometry(.014,.012,D*.62),bandM);m.position.set(s*.2,-H/2-.0005,0);phone.add(m);});
+// front cover glass with a softly rounded edge
+var gT=.006,glassG=new THREE.ExtrudeGeometry(sq(W-.03,H-.03,R-.02),{depth:.001,bevelEnabled:true,bevelThickness:gT,bevelSize:.006,bevelSegments:6,curveSegments:48});
+var glass=new THREE.Mesh(glassG,new THREE.MeshPhysicalMaterial({color:0x010102,metalness:0,roughness:.05,clearcoat:1,clearcoatRoughness:.02}));
+glass.position.z=D/2-.002;phone.add(glass);
+var FZ=D/2+.0055; // front surface
+var SW=W-.064,SH=H-.064;
+var sGeo=flatUV(new THREE.ShapeGeometry(sq(SW,SH,R-.045),48),SW,SH);
+var loader=new THREE.TextureLoader(),TEX={};
+SCREENS.forEach(function(n){var t=loader.load('screens/'+n+'.jpg');t.encoding=THREE.sRGBEncoding;t.anisotropy=renderer.capabilities.getMaxAnisotropy();TEX[n]=t;});
+var scrA=new THREE.Mesh(sGeo,new THREE.MeshBasicMaterial({map:TEX['a01-today'],toneMapped:false,color:0xf2f2f2}));scrA.position.z=FZ;phone.add(scrA);
+var scrB=new THREE.Mesh(sGeo,new THREE.MeshBasicMaterial({map:TEX['a01-today'],toneMapped:false,color:0xf2f2f2,transparent:true,opacity:0}));scrB.position.z=FZ+.0004;phone.add(scrB);
+// glass reflection on top of the display
+var sheen=new THREE.Mesh(new THREE.ShapeGeometry(sq(W-.03,H-.03,R-.02),48),new THREE.MeshPhysicalMaterial({color:0x000000,roughness:.03,metalness:0,clearcoat:1,transparent:true,opacity:.22,depthWrite:false}));
+sheen.position.z=FZ+.001;phone.add(sheen);
+// buttons: rounded capsules sitting on the frame
+function pill(len,th){var g=new THREE.CylinderGeometry(th/2,th/2,len,24,1);var cap=new THREE.SphereGeometry(th/2,24,12);var grp=new THREE.Group();grp.add(new THREE.Mesh(g,metal));[1,-1].forEach(function(s){var c=new THREE.Mesh(cap,metal);c.position.y=s*len/2;grp.add(c);});return grp;}
+function btn(side,y,len){var p=pill(len,.026);p.scale.set(.55,1,1);p.position.set(side*(W/2+.004),y,0);phone.add(p);}
+btn(1,.36,.2);btn(-1,.6,.06);btn(-1,.42,.12);btn(-1,.25,.12);
+var camCtl=new THREE.Mesh(new THREE.BoxGeometry(.012,.13,.04),new THREE.MeshPhysicalMaterial({color:0x0c0c0e,roughness:.15,clearcoat:1}));camCtl.position.set(W/2+.004,-.3,0);phone.add(camCtl);
+// back: frosted glass
+var back=new THREE.Mesh(new THREE.ShapeGeometry(sq(W-.03,H-.03,R-.02),48),new THREE.MeshPhysicalMaterial({color:0x101012,roughness:.42,metalness:.6,clearcoat:.4,clearcoatRoughness:.5}));
+back.position.z=-D/2-.002;back.rotation.y=Math.PI;phone.add(back);
+// camera plateau (full-width bar like 17 Pro) with three lenses, flash and LiDAR
+var platG=new THREE.ExtrudeGeometry(sq(W-.06,.5,.16),{depth:.018,bevelEnabled:true,bevelThickness:.01,bevelSize:.01,bevelSegments:6,curveSegments:32});
+var plat=new THREE.Mesh(platG,metal);plat.position.set(0,H/2-.29,-D/2-.03);phone.add(plat);
+var BZ=-D/2-.042;
+var ringM=new THREE.MeshPhysicalMaterial({color:0x4a4a4e,metalness:1,roughness:.15}),
+    bezM=new THREE.MeshPhysicalMaterial({color:0x08080a,roughness:.3}),
+    lensM=new THREE.MeshPhysicalMaterial({color:0x06060c,roughness:.0,metalness:.1,clearcoat:1,clearcoatRoughness:0}),
+    coreM=new THREE.MeshPhysicalMaterial({color:0x101016,roughness:.1,metalness:.5,clearcoat:1});
+function lens(x,y){
+  var r=new THREE.Mesh(new THREE.CylinderGeometry(.09,.092,.026,56),ringM);r.rotation.x=Math.PI/2;r.position.set(x,y,BZ-.01);phone.add(r);
+  var z=BZ-.0235;
+  [[.078,bezM],[.064,lensM],[.03,coreM],[.012,lensM]].forEach(function(o,n){var c=new THREE.Mesh(new THREE.CircleGeometry(o[0],56),o[1]);c.rotation.y=Math.PI;c.position.set(x,y,z-n*.0006);phone.add(c);});
+}
+var py=plat.position.y;
+lens(.3,py+.1);lens(.3,py-.1);lens(.1,py);
+var flash=new THREE.Mesh(new THREE.CircleGeometry(.028,32),new THREE.MeshPhysicalMaterial({color:0xd8d8d0,roughness:.35}));flash.rotation.y=Math.PI;flash.position.set(-.08,py+.1,BZ-.0005);phone.add(flash);
+var lidar=new THREE.Mesh(new THREE.CircleGeometry(.024,32),lensM);lidar.rotation.y=Math.PI;lidar.position.set(-.08,py-.1,BZ-.0005);phone.add(lidar);
+
+// ---------- dot sphere / globe ----------
+var N=6000,LM=window.LM||'',GA=Math.PI*(3-Math.sqrt(5));
+var pos=new Float32Array(N*3),st=new Float32Array(N*3),del=new Float32Array(N),land=new Float32Array(N);
+for(var i=0;i<N;i++){var y=1-(i/(N-1))*2,r=Math.sqrt(1-y*y),th=GA*i;pos.set([Math.cos(th)*r,y,Math.sin(th)*r],i*3);
+  var Rr=2.2+Math.random()*2.6,u=Math.random()*2-1,ph=Math.random()*Math.PI*2,q=Math.sqrt(1-u*u);st.set([Math.cos(ph)*q*Rr,u*Rr*1.4,Math.sin(ph)*q*Rr],i*3);
+  del[i]=Math.random()*.35;var ch=LM.charAt(i);land[i]=(ch&&ch!=='-')?1:0;}
+var sg=new THREE.BufferGeometry();sg.setAttribute('position',new THREE.BufferAttribute(pos,3));sg.setAttribute('aStart',new THREE.BufferAttribute(st,3));sg.setAttribute('aDelay',new THREE.BufferAttribute(del,1));sg.setAttribute('aLand',new THREE.BufferAttribute(land,1));
+var SU={uMix:{value:0},uLand:{value:0},uSize:{value:3.2},uPR:{value:PR},uTime:{value:0},uOp:{value:1},uColor:{value:new THREE.Color(1,1,1)}};
+var sphereMat=new THREE.ShaderMaterial({uniforms:SU,transparent:true,depthWrite:false,
+  vertexShader:'attribute vec3 aStart;attribute float aDelay;attribute float aLand;uniform float uMix,uLand,uSize,uPR,uTime;varying float vA;'+
+  'void main(){float m=clamp((uMix-aDelay)/0.65,0.0,1.0);m=1.0-pow(1.0-m,3.0);float ang=(1.0-m)*2.6;float cs=cos(ang),sn=sin(ang);'+
+  'vec3 s0=vec3(aStart.x*cs-aStart.z*sn,aStart.y+sin(uTime*0.7+aDelay*20.0)*0.14*(1.0-m),aStart.x*sn+aStart.z*cs);vec3 p=mix(s0,position,m);'+
+  'float ld=mix(1.0,aLand,uLand);vec4 mv=modelViewMatrix*vec4(p,1.0);vec3 nz=normalize((modelViewMatrix*vec4(position,0.0)).xyz);'+
+  'float face=mix(1.0,smoothstep(-0.35,0.55,nz.z),m);vA=mix(0.13,1.0,ld)*mix(0.1,1.0,face);'+
+  'gl_PointSize=uSize*mix(0.55,1.1,ld)*(7.0/-mv.z)*uPR;gl_Position=projectionMatrix*mv;}',
+  fragmentShader:'uniform vec3 uColor;uniform float uOp;varying float vA;void main(){float d=length(gl_PointCoord-0.5);if(d>0.5)discard;gl_FragColor=vec4(uColor,smoothstep(0.5,0.28,d)*vA*uOp);}'});
+var globe=new THREE.Group();scene.add(globe);
+var dots=new THREE.Points(sg,sphereMat);globe.add(dots);
+// helpline beacons
+var BC=[[39,-98],[56,-106],[54,-2],[51,10],[46,2],[40,-4],[-25,134],[-14,-52],[21,78],[56,38]];
+var bp=new Float32Array(BC.length*3),bph=new Float32Array(BC.length);
+BC.forEach(function(c,k){var la=c[0]*Math.PI/180,lo=c[1]*Math.PI/180;bp.set([Math.cos(la)*Math.sin(lo)*1.015,Math.sin(la)*1.015,Math.cos(la)*Math.cos(lo)*1.015],k*3);bph[k]=k*1.7;});
+var bg=new THREE.BufferGeometry();bg.setAttribute('position',new THREE.BufferAttribute(bp,3));bg.setAttribute('aPh',new THREE.BufferAttribute(bph,1));
+var BU={uTime:SU.uTime,uPR:SU.uPR,uOp:{value:0},uColor:SU.uColor};
+var beacons=new THREE.Points(bg,new THREE.ShaderMaterial({uniforms:BU,transparent:true,depthWrite:false,
+  vertexShader:'attribute float aPh;uniform float uTime,uPR;varying float vA;varying float vP;void main(){vec4 mv=modelViewMatrix*vec4(position,1.0);vec3 nz=normalize((modelViewMatrix*vec4(position,0.0)).xyz);vA=smoothstep(-0.1,0.45,nz.z);vP=fract(uTime*0.45+aPh*0.13);gl_PointSize=(10.0+34.0*vP)*(7.0/-mv.z)*uPR;gl_Position=projectionMatrix*mv;}',
+  fragmentShader:'uniform vec3 uColor;uniform float uOp;varying float vA;varying float vP;void main(){float d=length(gl_PointCoord-0.5)*2.0;float core=smoothstep(0.3,0.18,d/(0.3+vP*0.7)*0.6);float ring=smoothstep(0.08,0.0,abs(d-0.86))*(1.0-vP);float a=max(core,ring);if(a<0.01)discard;gl_FragColor=vec4(uColor,a*vA*uOp);}'}));
+globe.add(beacons);
+
+// ---------- keyframes ----------
+var HID={px:0,py:-4.6,pz:0,prx:.2,pry:0,ps:1.1};
+function P(o){return Object.assign({px:1.45,py:0,pz:0,prx:.05,pry:-.4,ps:1.22},o);}
+function S(o){return Object.assign({sx:0,sy:0,ss:1.2,mix:1,land:0,sop:0,beac:0},o);}
+var ST={
+  hero:   Object.assign(S({sy:.32,ss:1.05,sop:1}),HID,{th:0}),
+  problem:Object.assign(S({sx:1.9,ss:1,mix:.1,sop:.75}),HID,{th:0}),
+  mission:Object.assign(S({ss:1.9,sop:.2}),HID,{th:0}),
+  p1:Object.assign(S({sx:1.45,ss:.5}),P({pry:-.42}),{th:0}),
+  p2:Object.assign(S({sx:-1.45,ss:.5}),P({px:-1.45,pry:.42,prx:.02}),{th:0}),
+  p3:Object.assign(S({sx:1.45,ss:.5}),P({pry:-.3,prx:-.06}),{th:0}),
+  p4:Object.assign(S({sx:-1.45,ss:.5}),P({px:-1.45,pry:.36}),{th:0}),
+  p5:Object.assign(S({sx:1.45,ss:.5}),P({pry:-.4,prx:.08}),{th:0}),
+  h0:Object.assign(S({sx:1.5,ss:.5}),P({px:1.5,pry:Math.PI-.55,prx:.12,ps:1.18}),{th:0}),
+  h1:Object.assign(S({sx:1.45,ss:.5}),P({pry:-.26}),{th:0}),
+  h2:Object.assign(S({sx:-1.45,ss:.5}),P({px:-1.45,pry:.3}),{th:0}),
+  h3:Object.assign(S({sx:1.45,ss:.5}),P({pry:-.3,prx:-.04}),{th:0}),
+  h4:Object.assign(S({sx:-1.45,ss:.5}),P({px:-1.45,pry:.32}),{th:0}),
+  partners:Object.assign(S({sx:1.35,ss:1.2,land:1,sop:1,beac:1}),HID,{px:-1.4,th:1}),
+  princ:Object.assign(S({ss:2.5,land:1,sop:.16,beac:.25}),HID,{th:1}),
+  road:Object.assign(S({sx:1.5,ss:.5}),P({pry:-.52,prx:.1,ps:1.2}),{th:0}),
+  grant:Object.assign(S({sx:1.6,ss:1,sop:.9}),HID,{px:1.5,th:0}),
+  end:Object.assign(S({sy:.55,ss:1.05,sop:1}),HID,{th:0})
+};
+var KEYS=['sx','sy','ss','mix','land','sop','beac','px','py','pz','prx','pry','ps','th'];
+var secs=[].slice.call(document.querySelectorAll('[data-k]')),anchors=[],narrow=false;
+var lastScreen='a01-today';
+secs.forEach(function(s){if(s.dataset.screen)lastScreen=s.dataset.screen;s._scr=s.dataset.screen||lastScreen;});
+// sections without a screen show the next one coming (so flips reveal the right screen)
+for(var j=secs.length-2;j>=0;j--){if(!secs[j].dataset.screen&&secs[j+1])secs[j]._scr=secs[j+1]._scr;}
+function measure(){var y=window.scrollY;docH=document.documentElement.scrollHeight-innerHeight;anchors=secs.map(function(s){var r=s.getBoundingClientRect();return r.top+y+r.height/2-innerHeight/2;});}
+function resize(){var w=innerWidth,h=innerHeight;narrow=w<431;renderer.setSize(w,h,false);camera.aspect=w/h;
+  camera.position.z=narrow?Math.max(7,7*0.9/(w/h)*0.62):7;camera.updateProjectionMatrix();measure();}
+function stateFor(k){var s=Object.assign({},ST[k]);
+  if(!narrow){ // keep phone/globe beside the text column at any window width
+    var hw=Math.tan(15*Math.PI/180)*camera.position.z*camera.aspect,hh=Math.tan(15*Math.PI/180)*camera.position.z;
+    var col=hw*.5; // centre of the free half
+    if(s.py>-4&&Math.abs(s.px)>.1){s.px=Math.sign(s.px)*col;s.ps=Math.min(s.ps,hw*.72/W,hh*1.5/H);}
+    if(Math.abs(s.sx)>.1){s.sx=Math.sign(s.sx)*col;s.ss=Math.min(s.ss,hw*.4);}
+    if(camera.aspect<1.2&&(k==='problem'))s.sop*=.45;
+    return s;}
+  if(narrow){s.px=0;s.sx=0;if(s.py>-4){s.py=.62;s.ps*=.62;}s.sy=(k==='hero'||k==='end')?.95:.7;if(k==='mission'||k==='princ')s.sy=0;if(k==='problem')s.sop*=.5;s.ss*=.82;}return s;}
+function ss(a,b,x){x=Math.min(1,Math.max(0,(x-a)/(b-a)));return x*x*(3-2*x);}
+
+var cur={},start=performance.now(),last=start,lastTh=-1,lastBar=-1,docH=0,V=new THREE.Vector3(),bar=document.getElementById('bar'),maskEls=[].slice.call(document.querySelectorAll('.k.L .blk,.k.R .blk')),STILL=location.hash==='#still';
+KEYS.forEach(function(k){cur[k]=stateFor('hero')[k];});
+var bgD=[5,5,6],bgL=[242,242,240];
+function frame(now){
+  var dt=Math.min(.05,(now-last)/1000);last=now;var t=(now-start)/1000;
+  var y=window.scrollY,i=0;
+  while(i<anchors.length-1&&y>=anchors[i+1])i++;
+  var a=secs[i],bS=secs[Math.min(i+1,secs.length-1)];
+  var f=anchors.length>1&&i<anchors.length-1?ss(.18,.82,(y-anchors[i])/Math.max(1,anchors[i+1]-anchors[i])):0;
+  if(y<anchors[0])f=0;
+  var A=stateFor(a.dataset.k),B=stateFor(bS.dataset.k),tgt={};
+  KEYS.forEach(function(k){tgt[k]=A[k]+(B[k]-A[k])*f;});
+  var kk=STILL?1:1-Math.exp(-dt*7);
+  KEYS.forEach(function(k){cur[k]+=(tgt[k]-cur[k])*kk;});
+  // screens crossfade
+  scrA.material.map=TEX[a._scr];scrB.material.map=TEX[bS._scr];scrB.material.opacity=a._scr===bS._scr?0:ss(.35,.65,f);
+  // phone
+  phone.position.set(cur.px,cur.py+Math.sin(t*.8)*.025,cur.pz);
+  phone.rotation.set(cur.prx+Math.sin(t*.6)*.02,cur.pry+Math.sin(t*.45)*.03,0);
+  phone.scale.setScalar(cur.ps);
+  // sphere
+  var intro=STILL?1:Math.min(1,t/2.8);
+  SU.uMix.value=Math.min(intro*1.0,cur.mix);SU.uLand.value=cur.land;SU.uTime.value=t;SU.uOp.value=cur.sop;BU.uOp.value=cur.beac;
+  globe.position.set(cur.sx,cur.sy,0);globe.scale.setScalar(cur.ss);
+  globe.rotation.set(.32*cur.land+.12,t*.12,0);
+  dots.visible=cur.sop>.005;beacons.visible=cur.beac>.005;
+  // theme
+  var th=Math.round(cur.th*200)/200;
+  if(th!==lastTh){lastTh=th;var bgc=bgD.map(function(v,n){return Math.round(v+(bgL[n]-v)*th);}),ink=Math.round(245-235*th);
+  var rs=document.documentElement.style;
+  rs.setProperty('--bg','rgb('+bgc.join(',')+')');
+  rs.setProperty('--ink','rgb('+ink+','+ink+','+(ink+(th<.5?2:1))+')');
+  rs.setProperty('--ink2','rgba('+ink+','+ink+','+ink+','+(.58+.06*th)+')');
+  rs.setProperty('--ink3','rgba('+ink+','+ink+','+ink+','+(.3+.08*th)+')');
+  rs.setProperty('--line','rgba('+ink+','+ink+','+ink+','+(.14+.02*th)+')');
+  var c=1-th;SU.uColor.value.setRGB(c*.96+.03,c*.96+.03,c*.97+.03);}
+  var bw=docH>0?Math.round(y/docH*1000)/1000:0;if(bw!==lastBar){lastBar=bw;bar.style.transform='scaleX('+bw+')';}
+  // phones: text fades out where it reaches the bottom edge of the 3D phone, so it never runs over it
+  if(narrow){
+    var cut=-9999;
+    if(cur.py>-3){phone.updateMatrixWorld();V.set(0,-H/2,0).applyMatrix4(phone.matrixWorld).project(camera);cut=(-V.y*.5+.5)*innerHeight+8;}
+    var tops=maskEls.map(function(e){return e.getBoundingClientRect().top;});
+    maskEls.forEach(function(e,n){var v=Math.round(cut-tops[n]);if(e._cut!==v){e._cut=v;e.style.setProperty('--cut',v+'px');}});
+  }
+  renderer.render(scene,camera);
+  requestAnimationFrame(frame);
+}
+window.addEventListener('resize',resize);
+resize();
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(measure);
+window.addEventListener('load',measure);
+requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
