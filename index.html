@@ -2,14 +2,8 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Oriel — презентация</title>
-<meta name="description" content="Oriel — приложение, которое помогает понять, откуда берётся тревога, и не оставляет человека одного, когда ему плохо.">
-<meta property="og:title" content="Oriel">
-<meta property="og:description" content="Приложение, которое помогает понять, откуда берётся тревога, и не оставляет человека одного, когда ему плохо.">
-<meta property="og:image" content="screens/o01-splash.jpg">
-<meta name="theme-color" content="#050506">
-<style>*,*::before,*::after{box-sizing:border-box}body{margin:0;padding:0}img{max-width:100%}</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
@@ -24,7 +18,7 @@
 }
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--ink);font-family:var(--text);font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-#stage{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;transform:translateZ(0)}
+#stage{position:fixed;left:0;top:0;width:100%;height:100vh;height:100lvh;z-index:0;pointer-events:none;transform:translateZ(0)}
 main{position:relative;z-index:1;padding-inline:max(16px,5vw)}
 .k{min-height:100vh;display:flex;align-items:center;padding-block:12vh}
 .k.L{justify-content:flex-start}
@@ -101,22 +95,24 @@ a:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
   .road li{grid-template-columns:64px minmax(0,1fr);gap:10px}
   .step::after{display:none}
 }
-@media (max-width:430px){
+@media (max-width:699px){
   body{font-size:16px}
-  .k{min-height:115vh;align-items:flex-end;padding-block:6vh 8vh}
-  .k.L,.k.R{justify-content:stretch}
-  .blk,.C .blk{width:100%}
-  .k.L .blk,.k.R .blk{--cut:-9999px;-webkit-mask-image:linear-gradient(to bottom,transparent var(--cut),#000 calc(var(--cut) + 64px));mask-image:linear-gradient(to bottom,transparent var(--cut),#000 calc(var(--cut) + 64px))}
-  .k.L,.k.R{min-height:100vh;padding-block:0 7vh}
-  .k.L .blk,.k.R .blk,.wide.k.L .blk{width:100%}
+  .k{min-height:100vh;min-height:100svh;padding-block:10vh}
+  .k.L,.k.R{justify-content:stretch;align-items:flex-end;padding-block:0 8vh}
+  .blk,.C .blk,.k.L .blk,.k.R .blk,.wide.k.L .blk{width:100%}
+  .k.L .blk,.k.R .blk{--cut:-9999px;-webkit-mask-image:linear-gradient(to bottom,transparent var(--cut),#000 calc(var(--cut) + 48px));mask-image:linear-gradient(to bottom,transparent var(--cut),#000 calc(var(--cut) + 48px))}
+  .problem,.partners,.roadmap,.grant{padding-block:12vh}
+  .k.L.problem .blk,.k.L.partners .blk,.k.L.roadmap .blk,.k.L.grant .blk{-webkit-mask-image:none;mask-image:none}
   .hero .blk{margin-top:52vh}
+  h2{font-size:clamp(28px,8vw,40px)}
+  h3{font-size:clamp(24px,6.6vw,30px)}
+  .big{font-size:clamp(56px,17vw,90px)}
   .stats{grid-template-columns:1fr;gap:18px}
   .lines{grid-template-columns:1fr}
-  .cards{grid-template-columns:1fr 1fr}
-  .road li{grid-template-columns:70px minmax(0,1fr)}
-  .problem,.mission,.princ,.grant{align-items:center}
+  .lines li span:last-child{white-space:normal;text-align:right}
+  .cards{grid-template-columns:1fr}
+  .road li{grid-template-columns:64px minmax(0,1fr);gap:12px}
 }
-@media (max-width:460px){.cards{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hint i{animation:none}}
 </style>
 </head>
@@ -236,7 +232,7 @@ a:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
     </div>
   </section>
 
-  <section class="k L" data-k="partners">
+  <section class="k L partners" data-k="partners">
     <div class="blk">
       <div class="kick">Партнёры</div>
       <h2>Помощь работает, <span class="g">только если за ней стоят люди в каждой стране.</span></h2>
@@ -269,7 +265,7 @@ a:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
     </div>
   </section>
 
-  <section class="k L" data-k="road" data-screen="o01-splash">
+  <section class="k L roadmap" data-k="road" data-screen="o01-splash">
     <div class="blk">
       <div class="kick">Где мы сейчас</div>
       <h2>Дизайн готов. <span class="g">Начали сборку.</span></h2>
@@ -353,9 +349,9 @@ function sq(w,h,r){ // continuous-curvature ("squircle") rounded rect, like Appl
   s.lineTo(x+k,y+h);s.bezierCurveTo(x+c,y+h,x,y+h-c,x,y+h-k);
   s.lineTo(x,y+k);s.bezierCurveTo(x,y+c,x+c,y,x+k,y);return s;}
 var phone=new THREE.Group();scene.add(phone);
-var W=1,H=2.086,R=.205,D=.122,b=.04;
-var metal=new THREE.MeshPhysicalMaterial({color:0x3c3c40,metalness:1,roughness:.28,clearcoat:.6,clearcoatRoughness:.18});
-var bodyG=new THREE.ExtrudeGeometry(sq(W-2*b,H-2*b,R-b),{depth:D-2*b,bevelEnabled:true,bevelThickness:b,bevelSize:b,bevelSegments:14,curveSegments:48});
+var W=1,H=2.086,R=.205,D=.122,b=.012;
+var metal=new THREE.MeshPhysicalMaterial({color:0x8e8e93,metalness:1,roughness:.24,clearcoat:.6,clearcoatRoughness:.15});
+var bodyG=new THREE.ExtrudeGeometry(sq(W-2*b,H-2*b,R-b),{depth:D-2*b,bevelEnabled:true,bevelThickness:b,bevelSize:b,bevelSegments:4,curveSegments:64});
 bodyG.translate(0,0,-(D-2*b)/2);phone.add(new THREE.Mesh(bodyG,metal));
 // antenna bands: thin dark strips across the frame
 var bandM=new THREE.MeshPhysicalMaterial({color:0x111113,roughness:.6,metalness:0});
@@ -373,8 +369,14 @@ SCREENS.forEach(function(n){var t=loader.load('screens/'+n+'.jpg');t.encoding=TH
 var scrA=new THREE.Mesh(sGeo,new THREE.MeshBasicMaterial({map:TEX['a01-today'],toneMapped:false,color:0xf2f2f2}));scrA.position.z=FZ;phone.add(scrA);
 var scrB=new THREE.Mesh(sGeo,new THREE.MeshBasicMaterial({map:TEX['a01-today'],toneMapped:false,color:0xf2f2f2,transparent:true,opacity:0}));scrB.position.z=FZ+.0004;phone.add(scrB);
 // glass reflection on top of the display
-var sheen=new THREE.Mesh(new THREE.ShapeGeometry(sq(W-.03,H-.03,R-.02),48),new THREE.MeshPhysicalMaterial({color:0x000000,roughness:.03,metalness:0,clearcoat:1,transparent:true,opacity:.22,depthWrite:false}));
+var shC=document.createElement('canvas');shC.width=256;shC.height=512;var shX=shC.getContext('2d'),shG=shX.createLinearGradient(0,0,256,512);
+shG.addColorStop(0,'rgba(255,255,255,.16)');shG.addColorStop(.32,'rgba(255,255,255,.05)');shG.addColorStop(.33,'rgba(255,255,255,0)');shG.addColorStop(1,'rgba(255,255,255,0)');shX.fillStyle=shG;shX.fillRect(0,0,256,512);
+var sheen=new THREE.Mesh(flatUV(new THREE.ShapeGeometry(sq(SW,SH,R-.045),48),SW,SH),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(shC),transparent:true,depthWrite:false,toneMapped:false}));
 sheen.position.z=FZ+.001;phone.add(sheen);
+var slitM=new THREE.MeshBasicMaterial({color:0x000000});
+var slit=new THREE.Mesh(new THREE.ShapeGeometry(sq(.13,.007,.0035),8),new THREE.MeshBasicMaterial({color:0x1c1c1e}));slit.position.set(0,H/2-.0225,FZ+.0012);phone.add(slit);
+var port=new THREE.Mesh(new THREE.ShapeGeometry(sq(.125,.04,.02),16),slitM);port.rotation.x=Math.PI/2;port.position.set(0,-H/2-.0012,0);phone.add(port);
+[1,-1].forEach(function(sd){for(var q=0;q<6;q++){var hole=new THREE.Mesh(new THREE.CircleGeometry(.0085,12),slitM);hole.rotation.x=Math.PI/2;hole.position.set(sd*(.15+q*.03),-H/2-.0012,0);phone.add(hole);}});
 // buttons: rounded capsules sitting on the frame
 function pill(len,th){var g=new THREE.CylinderGeometry(th/2,th/2,len,24,1);var cap=new THREE.SphereGeometry(th/2,24,12);var grp=new THREE.Group();grp.add(new THREE.Mesh(g,metal));[1,-1].forEach(function(s){var c=new THREE.Mesh(cap,metal);c.position.y=s*len/2;grp.add(c);});return grp;}
 function btn(side,y,len){var p=pill(len,.026);p.scale.set(.55,1,1);p.position.set(side*(W/2+.004),y,0);phone.add(p);}
@@ -443,7 +445,7 @@ var ST={
   p3:Object.assign(S({sx:1.45,ss:.5}),P({pry:-.3,prx:-.06}),{th:0}),
   p4:Object.assign(S({sx:-1.45,ss:.5}),P({px:-1.45,pry:.36}),{th:0}),
   p5:Object.assign(S({sx:1.45,ss:.5}),P({pry:-.4,prx:.08}),{th:0}),
-  h0:Object.assign(S({sx:1.5,ss:.5}),P({px:1.5,pry:Math.PI-.55,prx:.12,ps:1.18}),{th:0}),
+  h0:Object.assign(S({sx:1.5,ss:.5}),P({px:1.5,pry:-.62,prx:.1,ps:1.18}),{th:0}),
   h1:Object.assign(S({sx:1.45,ss:.5}),P({pry:-.26}),{th:0}),
   h2:Object.assign(S({sx:-1.45,ss:.5}),P({px:-1.45,pry:.3}),{th:0}),
   h3:Object.assign(S({sx:1.45,ss:.5}),P({pry:-.3,prx:-.04}),{th:0}),
@@ -461,7 +463,11 @@ secs.forEach(function(s){if(s.dataset.screen)lastScreen=s.dataset.screen;s._scr=
 // sections without a screen show the next one coming (so flips reveal the right screen)
 for(var j=secs.length-2;j>=0;j--){if(!secs[j].dataset.screen&&secs[j+1])secs[j]._scr=secs[j+1]._scr;}
 function measure(){var y=window.scrollY;docH=document.documentElement.scrollHeight-innerHeight;anchors=secs.map(function(s){var r=s.getBoundingClientRect();return r.top+y+r.height/2-innerHeight/2;});}
-function resize(){var w=innerWidth,h=innerHeight;narrow=w<431;renderer.setSize(w,h,false);camera.aspect=w/h;
+var lastW=0,lastH=0,TOUCH=matchMedia('(pointer:coarse)').matches;
+function resize(){var w=innerWidth,h=canvas.clientHeight||innerHeight;
+  // mobile browsers resize the viewport while the address bar hides; re-laying out then makes the scene jump
+  if(TOUCH&&w===lastW&&Math.abs(h-lastH)<160){measure();return;}
+  lastW=w;lastH=h;narrow=w<700;renderer.setSize(w,h,false);camera.aspect=w/h;
   camera.position.z=narrow?Math.max(7,7*0.9/(w/h)*0.62):7;camera.updateProjectionMatrix();measure();}
 function stateFor(k){var s=Object.assign({},ST[k]);
   if(!narrow){ // keep phone/globe beside the text column at any window width
@@ -471,10 +477,17 @@ function stateFor(k){var s=Object.assign({},ST[k]);
     if(Math.abs(s.sx)>.1){s.sx=Math.sign(s.sx)*col;s.ss=Math.min(s.ss,hw*.4);}
     if(camera.aspect<1.2&&(k==='problem'))s.sop*=.45;
     return s;}
-  if(narrow){s.px=0;s.sx=0;if(s.py>-4){s.py=.62;s.ps*=.62;}s.sy=(k==='hero'||k==='end')?.95:.7;if(k==='mission'||k==='princ')s.sy=0;if(k==='problem')s.sop*=.5;s.ss*=.82;}return s;}
+  // phones: phone and sphere sit in the top half, text in the bottom half; long text chapters get no 3D behind them
+  s.px=0;s.sx=0;if(k==='road')s.py=HID.py;
+  if(s.py>-4){s.py=PHY;s.ps*=PHS;s.pry*=.7;}
+  s.sy=(k==='hero'||k==='end')?.95:.7;s.ss*=.82;
+  if(k==='mission')s.sy=0;
+  if(k==='problem'||k==='grant'||k==='princ')s.sop*=.12;
+  if(k==='partners'){s.sop=0;s.beac=0;}
+  return s;}
 function ss(a,b,x){x=Math.min(1,Math.max(0,(x-a)/(b-a)));return x*x*(3-2*x);}
 
-var cur={},start=performance.now(),last=start,lastTh=-1,lastBar=-1,docH=0,V=new THREE.Vector3(),bar=document.getElementById('bar'),maskEls=[].slice.call(document.querySelectorAll('.k.L .blk,.k.R .blk')),STILL=location.hash==='#still';
+var PHY=.55,PHS=.8,cur={},start=performance.now(),last=start,lastTh=-1,lastBar=-1,docH=0,V=new THREE.Vector3(),bar=document.getElementById('bar'),maskEls=[].slice.call(document.querySelectorAll('.k.L .blk,.k.R .blk')),STILL=location.hash==='#still';
 KEYS.forEach(function(k){cur[k]=stateFor('hero')[k];});
 var bgD=[5,5,6],bgL=[242,242,240];
 function frame(now){
@@ -514,7 +527,7 @@ function frame(now){
   // phones: text fades out where it reaches the bottom edge of the 3D phone, so it never runs over it
   if(narrow){
     var cut=-9999;
-    if(cur.py>-3){phone.updateMatrixWorld();V.set(0,-H/2,0).applyMatrix4(phone.matrixWorld).project(camera);cut=(-V.y*.5+.5)*innerHeight+8;}
+    if(cur.py>-3){phone.updateMatrixWorld();V.set(0,-H/2,0).applyMatrix4(phone.matrixWorld).project(camera);cut=(-V.y*.5+.5)*lastH+8;}
     var tops=maskEls.map(function(e){return e.getBoundingClientRect().top;});
     maskEls.forEach(function(e,n){var v=Math.round(cut-tops[n]);if(e._cut!==v){e._cut=v;e.style.setProperty('--cut',v+'px');}});
   }
@@ -528,5 +541,6 @@ window.addEventListener('load',measure);
 requestAnimationFrame(frame);
 })();
 </script>
+
 </body>
 </html>
