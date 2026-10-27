@@ -380,10 +380,12 @@ glass.position.z=D/2-.002;phone.add(glass);
 var FZ=D/2+.0055; // front surface
 var SW=W-.064,SH=H-.064;
 var sGeo=flatUV(new THREE.ShapeGeometry(sq(SW,SH,R-.045),48),SW,SH);
-var loader=new THREE.TextureLoader(),TEX={};
-SCREENS.forEach(function(n){var t=loader.load('screens/'+n+'.jpg');t.encoding=THREE.sRGBEncoding;t.anisotropy=renderer.capabilities.getMaxAnisotropy();TEX[n]=t;});
-var scrA=new THREE.Mesh(sGeo,new THREE.MeshBasicMaterial({map:TEX['a01-today'],toneMapped:false,color:0xf2f2f2}));scrA.position.z=FZ;phone.add(scrA);
-var scrB=new THREE.Mesh(sGeo,new THREE.MeshBasicMaterial({map:TEX['a01-today'],toneMapped:false,color:0xf2f2f2,transparent:true,opacity:0}));scrB.position.z=FZ+.0004;phone.add(scrB);
+// until a screenshot arrives the display shows a light placeholder instead of black
+var loader=new THREE.TextureLoader(),TEX={},OK={},PH=new THREE.DataTexture(new Uint8Array([245,245,247,255]),1,1,THREE.RGBAFormat);PH.needsUpdate=true;
+function tex(n){return OK[n]?TEX[n]:PH;}
+SCREENS.forEach(function(n){var t=loader.load('screens/'+n+'.jpg',function(){OK[n]=1;});t.encoding=THREE.sRGBEncoding;t.anisotropy=renderer.capabilities.getMaxAnisotropy();TEX[n]=t;});
+var scrA=new THREE.Mesh(sGeo,new THREE.MeshBasicMaterial({map:PH,toneMapped:false,color:0xf2f2f2}));scrA.position.z=FZ;phone.add(scrA);
+var scrB=new THREE.Mesh(sGeo,new THREE.MeshBasicMaterial({map:PH,toneMapped:false,color:0xf2f2f2,transparent:true,opacity:0}));scrB.position.z=FZ+.0004;phone.add(scrB);
 // glass reflection on top of the display
 var shC=document.createElement('canvas');shC.width=256;shC.height=512;var shX=shC.getContext('2d'),shG=shX.createLinearGradient(0,0,256,512);
 shG.addColorStop(0,'rgba(255,255,255,.16)');shG.addColorStop(.32,'rgba(255,255,255,.05)');shG.addColorStop(.33,'rgba(255,255,255,0)');shG.addColorStop(1,'rgba(255,255,255,0)');shX.fillStyle=shG;shX.fillRect(0,0,256,512);
@@ -519,7 +521,7 @@ function frame(now){
   var kk=STILL?1:1-Math.exp(-dt*7);
   KEYS.forEach(function(k){cur[k]+=(tgt[k]-cur[k])*kk;});
   // screens crossfade
-  scrA.material.map=TEX[a._scr];scrB.material.map=TEX[bS._scr];scrB.material.opacity=a._scr===bS._scr?0:ss(.35,.65,f);
+  scrA.material.map=tex(a._scr);scrB.material.map=tex(bS._scr);scrB.material.opacity=a._scr===bS._scr?0:ss(.35,.65,f);
   // phone
   phone.position.set(cur.px,cur.py+Math.sin(t*.8)*.025,cur.pz);
   phone.rotation.set(cur.prx+Math.sin(t*.6)*.02,cur.pry+Math.sin(t*.45)*.03,0);
