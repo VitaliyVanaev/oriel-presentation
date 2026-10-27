@@ -69,7 +69,7 @@ form{background:var(--surface);border:1px solid var(--line);border-radius:22px;p
 .chip{all:unset;box-sizing:border-box;cursor:pointer;min-height:44px;padding:10px 16px;border-radius:22px;border:1px solid var(--line);background:var(--chip);font-size:15px;display:inline-flex;align-items:center;transition:background .15s,color .15s,border-color .15s}
 .chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .chip:focus-visible,.btn:focus-visible,input:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
-input[type=text]{width:100%;height:48px;padding:0 16px;border-radius:14px;border:1px solid var(--line);background:var(--chip);color:var(--ink);font:inherit;font-size:16px}
+input[type=text],input[type=email]{width:100%;height:48px;padding:0 16px;border-radius:14px;border:1px solid var(--line);background:var(--chip);color:var(--ink);font:inherit;font-size:16px}
 input::placeholder{color:var(--ink3)}
 .actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
 .btn{all:unset;box-sizing:border-box;cursor:pointer;height:52px;padding:0 28px;border-radius:26px;background:var(--ink);color:var(--bg);font-family:var(--display);font-weight:600;font-size:17px;display:inline-flex;align-items:center}
@@ -89,6 +89,11 @@ td .del.arm{color:var(--bg);background:var(--ink)}
 .copybox{display:flex;flex-direction:column;gap:10px}
 .copybox p{margin:0;font-size:14px;color:var(--ink2);max-width:70ch}
 #dump{width:100%;height:160px;border-radius:14px;border:1px solid var(--line);background:var(--chip);color:var(--ink2);font:12px var(--mono);padding:12px}
+.signup .qs{grid-template-columns:repeat(2,minmax(0,1fr))}
+.consent{flex-direction:row!important;align-items:flex-start;gap:12px;font-size:15px;color:var(--ink2);cursor:pointer}
+.consent input{width:22px;height:22px;margin:1px 0 0;accent-color:var(--ink);flex:none}
+table.ctable{min-width:640px}
+.signup .tablebox{margin-top:4px}
 .empty{padding:28px;text-align:center;color:var(--ink3)}
 @media (max-width:760px){.qs{grid-template-columns:minmax(0,1fr)}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.stats .stat:first-child{grid-column:1/-1}}
 @media (prefers-reduced-motion:reduce){.chip{transition:none}}
@@ -129,12 +134,25 @@ td .del.arm{color:var(--bg);background:var(--ink)}
   <section style="display:flex;flex-direction:column;gap:12px">
     <h2>Все ответы</h2>
     <div id="copybox" class="copybox" hidden>
-      <p>Ответы хранятся только на этом iPad. В конце каждого дня нажми кнопку и пришли текст Claude, чтобы ничего не потерялось.</p>
-      <div class="actions"><button class="btn ghost" id="copy" type="button">Скопировать все ответы</button><span class="msg" id="copymsg" role="status"></span></div>
+      <p>Ответы и подписчики рассылки хранятся только на этом iPad. В конце каждого дня нажми кнопку и пришли текст Claude, чтобы ничего не потерялось.</p>
+      <div class="actions"><button class="btn ghost" id="copy" type="button">Скопировать всё</button><span class="msg" id="copymsg" role="status"></span></div>
       <textarea id="dump" hidden readonly aria-label="Все ответы текстом"></textarea>
     </div>
     <div class="tablebox"><table><thead><tr id="thead"></tr></thead><tbody id="tbody"><tr><td class="empty" colspan="15">Здесь появятся сохранённые анкеты. Заполни первую сверху.</td></tr></tbody></table></div>
   </section>
+
+  <form id="cf" class="signup" autocomplete="off" novalidate>
+    <div class="formhead"><h2>Рассылка Oriel</h2><span class="status">Отдельно от анкеты: анкета анонимная, сюда человек сам оставляет контакт</span></div>
+    <div class="qs">
+      <div class="q"><label for="c-name">Имя</label><input type="text" id="c-name" maxlength="80" placeholder="Как обращаться в письме"></div>
+      <div class="q"><label for="c-email">Почта</label><input type="email" id="c-email" maxlength="120" inputmode="email" autocapitalize="off" spellcheck="false" placeholder="name@mail.ru"></div>
+      <div class="q" role="radiogroup" aria-label="Телефон"><div class="lbl">Телефон</div><div class="chips" data-group="device"><button type="button" class="chip" data-v="iPhone">iPhone</button><button type="button" class="chip" data-v="Android">Android</button><button type="button" class="chip" data-v="Другой">Другой</button></div></div>
+      <div class="q" role="radiogroup" aria-label="Часы"><div class="lbl">Часы</div><div class="chips" data-group="watch"><button type="button" class="chip" data-v="Apple Watch">Apple Watch</button><button type="button" class="chip" data-v="Другие смарт-часы">Другие смарт-часы</button><button type="button" class="chip" data-v="Фитнес-браслет">Фитнес-браслет</button><button type="button" class="chip" data-v="Нет">Нет</button></div></div>
+      <label class="q full consent" for="c-ok"><input type="checkbox" id="c-ok"><span>Согласен получать письма об Oriel: приглашение в бета-тест и новости. Отписаться можно в любой момент.</span></label>
+    </div>
+    <div class="actions"><button class="btn" type="submit" id="c-save">Подписать</button><span class="msg" id="c-msg" role="status"></span></div>
+    <div class="tablebox"><table class="ctable"><thead><tr><th>№</th><th>Время</th><th>Имя</th><th>Почта</th><th>Телефон</th><th>Часы</th><th></th></tr></thead><tbody id="c-body"><tr><td class="empty" colspan="7">Здесь появятся подписавшиеся.</td></tr></tbody></table></div>
+  </form>
 </div>
 
 <script>
@@ -262,14 +280,59 @@ function startLocal(){
   try { localStorage.setItem(KEY + "-probe", "1"); localStorage.removeItem(KEY + "-probe"); }
   catch { $("status").textContent = "Браузер не даёт сохранять. Выключи режим «Частный доступ» в Safari."; return; }
   rows = local.read(); render();
+  contacts = clocal.read(); cRender();
   $("status").textContent = "Сохраняется на этом iPad";
   $("copybox").hidden = false;
 }
 $("copy").onclick = async () => {
-  const text = JSON.stringify(local.read().map(r => r.data), null, 1);
-  try { await navigator.clipboard.writeText(text); $("copymsg").textContent = `Скопировано анкет: ${rows.length}. Вставь в чат с Claude.`; }
+  const text = JSON.stringify({answers: local.read().map(r => r.data), mailing: clocal.read().map(r => r.data)}, null, 1);
+  try { await navigator.clipboard.writeText(text); $("copymsg").textContent = `Скопировано: анкет ${rows.length}, подписчиков ${contacts.length}. Вставь в чат с Claude.`; }
   catch { $("dump").hidden = false; $("dump").value = text; $("dump").select(); $("copymsg").textContent = "Выдели текст ниже и скопируй вручную."; }
 };
+
+// Mailing list: kept apart from the anonymous answers so a name never sits next to them.
+const CKEY = "oriel-contacts-v1";
+let C = {device: null, watch: null}, contacts = [], cArmed = null;
+const clocal = {
+  read(){ try { return JSON.parse(localStorage.getItem(CKEY)) || []; } catch { return []; } },
+  write(list){ localStorage.setItem(CKEY, JSON.stringify(list)); },
+};
+let cstore = {
+  async add(d){ const list = clocal.read(); list.unshift({id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6), data: d}); clocal.write(list); contacts = list; cRender(); },
+  async remove(id){ const list = clocal.read().filter(r => r.id !== id); clocal.write(list); contacts = list; cRender(); },
+};
+document.querySelectorAll("#cf .chips").forEach(g => g.addEventListener("click", e => {
+  const b = e.target.closest(".chip"); if (!b) return;
+  const k = g.dataset.group; C[k] = C[k] === b.dataset.v ? null : b.dataset.v;
+  g.querySelectorAll(".chip").forEach(x => { const on = x.dataset.v === C[k]; x.classList.toggle("on", on); x.setAttribute("aria-checked", on); });
+}));
+document.querySelectorAll("#cf .chip").forEach(b => { b.setAttribute("role", "radio"); b.setAttribute("aria-checked", "false"); });
+function cRender(){
+  $("c-body").innerHTML = contacts.length ? contacts.map((r, i) => {
+    const d = r.data, t = d.createdAt ? new Date(d.createdAt).toLocaleString("ru-RU", {day:"2-digit", month:"2-digit", hour:"2-digit", minute:"2-digit"}) : "";
+    return `<tr><td class="n">${contacts.length - i}</td><td class="n">${t}</td><td>${esc(d.name)}</td><td>${esc(d.email)}</td><td>${esc(d.device)}</td><td>${esc(d.watch)}</td><td><button type="button" class="del ${cArmed === r.id ? "arm" : ""}" data-id="${r.id}">${cArmed === r.id ? "Точно удалить?" : "Удалить"}</button></td></tr>`;
+  }).join("") : `<tr><td class="empty" colspan="7">Здесь появятся подписавшиеся.</td></tr>`;
+}
+$("c-body").addEventListener("click", async e => {
+  const b = e.target.closest(".del"); if (!b) return;
+  if (cArmed !== b.dataset.id) { cArmed = b.dataset.id; cRender(); return; }
+  cArmed = null;
+  try { await cstore.remove(b.dataset.id); } catch (err) { $("c-msg").textContent = "Не удалось удалить: " + (err && err.message || "ошибка"); cRender(); }
+});
+$("cf").addEventListener("submit", async e => {
+  e.preventDefault();
+  const email = $("c-email").value.trim(), name = $("c-name").value.trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { $("c-msg").textContent = "Проверь почту: в ней нужны @ и точка, например name@mail.ru."; $("c-email").focus(); return; }
+  if (!$("c-ok").checked) { $("c-msg").textContent = "Отметь согласие на письма, без него подписать нельзя."; return; }
+  $("c-save").disabled = true; $("c-msg").textContent = "Сохраняю…";
+  try {
+    await cstore.add({name, email, device: C.device, watch: C.watch, consent: true, createdAt: new Date().toISOString()});
+    $("c-msg").textContent = `Подписан: ${name || email}.`;
+    C = {device: null, watch: null}; $("c-name").value = ""; $("c-email").value = ""; $("c-ok").checked = false;
+    document.querySelectorAll("#cf .chip").forEach(x => { x.classList.remove("on"); x.setAttribute("aria-checked", "false"); });
+  } catch (err) { $("c-msg").textContent = "Не сохранилось: " + (err && err.message || "ошибка сети") + ". Нажми «Подписать» ещё раз."; }
+  finally { $("c-save").disabled = false; }
+});
 
 (async () => {
   db = window.claude && window.claude.use ? await window.claude.use("db") : null;
@@ -278,6 +341,11 @@ $("copy").onclick = async () => {
     add: d => db.collection("responses").add(d),
     remove: id => db.collection("responses").doc(id).delete(),
   };
+  cstore = {
+    add: d => db.collection("contacts").add(d),
+    remove: id => db.collection("contacts").doc(id).delete(),
+  };
+  db.collection("contacts").orderBy("createdAt", "desc").onSnapshot(s => { contacts = s.docs.map(d => ({id: d.id, data: d.data() || {}})); cRender(); }, () => {});
   $("status").textContent = "Сохраняется в облако";
   db.collection("responses").orderBy("createdAt", "desc").onSnapshot(
     s => { rows = s.docs.map(d => ({id: d.id, data: d.data() || {}})); render(); },
