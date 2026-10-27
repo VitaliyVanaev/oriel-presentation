@@ -3,12 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Oriel — презентация</title>
+<title>Oriel для вузов</title>
+<meta name="description" content="Oriel помогает студентам справляться с тревогой в сессию. Пилот для вузов. Форум ПедТех.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: one fixed WebGL stage (dot sphere + 3D iPhone) behind a long scroll story; text alternates sides opposite the phone. Monochrome, inverts to white for the partners chapter. */
+/* Layout: one fixed WebGL stage (dot sphere + 3D iPhone) behind a long scroll story; text alternates sides opposite the phone. Monochrome, inverts to white for the "Для вуза" chapter. */
 :root{
   --bg:#050506; --ink:#f5f5f7; --ink2:rgba(245,245,247,.58); --ink3:rgba(245,245,247,.28); --line:rgba(245,245,247,.14);
   --display:-apple-system,"SF Pro Display",BlinkMacSystemFont,"Inter Tight","Helvetica Neue",Arial,sans-serif;
@@ -124,9 +125,9 @@ a:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 <main>
   <section class="k C hero" data-k="hero">
     <div class="blk">
+      <div class="kick">ПедТех · Мининский университет · 2026</div>
       <h1>Oriel</h1>
-      <div class="acr"><b>O</b>bserve · <b>R</b>ecognize · <b>I</b>nsight · <b>E</b>ase · <b>L</b>ive</div>
-      <p class="lead">Приложение, которое помогает понять, откуда берётся тревога, и не оставляет человека одного, когда ему плохо.</p>
+      <p class="lead">Помогает студенту понять, что выбивает его из колеи, заранее видеть тяжёлые дни и успокаиваться за 3 минуты, пока тревога не мешает учиться.</p>
     </div>
     <div class="hint">Листайте<i></i></div>
   </section>
@@ -134,159 +135,114 @@ a:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
   <section class="k L wide problem" data-k="problem">
     <div class="blk">
       <div class="kick">Проблема</div>
-      <h2>Тревога есть почти у каждого. <span class="g">Помощь получает меньшинство.</span></h2>
+      <h2>Тревога мешает учиться. <span class="g">До психолога доходят немногие.</span></h2>
       <div class="stats">
-        <div class="stat"><div class="n">301 млн</div><p>человек в мире живут с тревожным расстройством. Это самое частое психическое расстройство.</p><div class="src">ВОЗ</div></div>
-        <div class="stat"><div class="n">1 из 4</div><p>людей с тревожным расстройством получает хоть какое-то лечение.</p><div class="src">ВОЗ, 2023</div></div>
-        <div class="stat"><div class="n">18,2%</div><p>взрослых в США в 2022 году отмечали у себя симптомы тревоги.</p><div class="src">CDC · NCHS</div></div>
+        <div class="stat"><div class="n">1 из 3</div><p>первокурсников хотя бы раз в жизни сталкивались с психическим расстройством, чаще всего с тревогой или депрессией.</p><div class="src">ВОЗ, опрос студентов 19 вузов, 2018</div></div>
+        <div class="stat"><div class="n">1 из 4</div><p>людей с тревожным расстройством получает хоть какую-то помощь.</p><div class="src">ВОЗ, 2023</div></div>
+        <div class="stat"><div class="n">2 сессии</div><p>в год дают предсказуемые пики тревоги. Их можно увидеть заранее и подготовиться.</p><div class="src">Учебный календарь</div></div>
       </div>
-      <p>Тревога редко появляется на пустом месте. Её подпитывают короткий сон, нагрузка, кофеин, ссоры. Человек обычно не видит этой связи, а приступ случается тогда, когда рядом никого нет.</p>
+      <p>Тревогу подпитывают короткий сон, дедлайны, кофеин, страх выступать. Студент обычно не видит этой связи, а тяжёлый вечер перед экзаменом проводит один.</p>
     </div>
   </section>
 
   <section class="k C mission" data-k="mission">
     <div class="blk">
-      <div class="kick">Миссия</div>
-      <h2>Чтобы человек понимал, что с ним происходит, <span class="g">и знал, куда обратиться, в какой бы стране он ни был.</span></h2>
-      <p>Oriel не заменяет психолога. Он собирает данные о сне, пульсе и настроении, находит в них закономерности и в тяжёлый момент показывает, куда позвонить.</p>
+      <div class="kick">Образовательный продукт</div>
+      <h2>Справляться со своим состоянием можно научиться, <span class="g">как любому другому навыку.</span></h2>
+      <p>Oriel учит этому на данных самого студента. Он видит связь «мало спал, и день был тревожным», пробует менять привычки и смотрит, что помогает именно ему.</p>
     </div>
   </section>
 
   <section class="k L" data-k="p1" data-screen="a01-today">
     <div class="blk">
-      <div class="step">Как это работает · 1 из 5</div>
+      <div class="step">Как это работает · 1 из 4</div>
       <h3>Весь день на одном экране</h3>
-      <p>Утром человек видит, как спал, какой сегодня фон тревоги и что на него влияет. Сон и пульс приходят сами из Apple Health и Health Connect, а это почти любые часы и браслеты.</p>
+      <p>Утром студент видит, как спал, какой у него сегодня запас сил и что на это влияет. Нужен только телефон. Если есть часы, сон и пульс подтянутся сами.</p>
     </div>
   </section>
 
   <section class="k R" data-k="p2" data-screen="a06-evening">
     <div class="blk">
-      <div class="step">Как это работает · 2 из 5</div>
-      <h3>Две короткие отметки в день</h3>
-      <p>Утром сон и самочувствие, около 15 секунд. Вечером настроение, тревога по шкале от 1 до 5 и то, что повлияло на день: кофе, спорт, работа, общение. Около 30 секунд.</p>
+      <div class="step">Как это работает · 2 из 4</div>
+      <h3>Две отметки в день</h3>
+      <p>Утром сон и самочувствие, около 15 секунд. Вечером настроение, тревога от 1 до 5 и что повлияло на день: пары, дедлайн, спорт, кофе. Около 30 секунд. Серий и штрафов за пропуски нет.</p>
     </div>
   </section>
 
   <section class="k L" data-k="p3" data-screen="a04-forecast">
     <div class="blk">
-      <div class="step">Как это работает · 3 из 5</div>
-      <h3>Прогноз на день</h3>
-      <p>Каждое утро Oriel сравнивает сон, пульс в покое и вариабельность пульса с личной нормой человека и говорит, насколько велик риск тревожного дня. И даёт один конкретный совет, например перенести кофе на утро.</p>
+      <div class="step">Как это работает · 3 из 4</div>
+      <h3>Тяжёлый день видно заранее</h3>
+      <p>Каждое утро Oriel сравнивает сон и вчерашние отметки с личной нормой студента. Перед экзаменом он мягко предупредит, что сил сегодня меньше обычного, и даст одно простое действие.</p>
     </div>
   </section>
 
   <section class="k R" data-k="p4" data-screen="a07-stats">
     <div class="blk">
-      <div class="step">Как это работает · 4 из 5</div>
+      <div class="step">Как это работает · 4 из 4</div>
       <h3>Что на самом деле влияет</h3>
-      <p>Через пару недель становится видно, что тревога растёт после коротких ночей или в дни с кофеином. Закономерности считаются по данным самого человека, а не по средним цифрам.</p>
-    </div>
-  </section>
-
-  <section class="k L" data-k="p5" data-screen="a11-reports">
-    <div class="blk">
-      <div class="step">Как это работает · 5 из 5</div>
-      <h3>Разбор недели</h3>
-      <p>В воскресенье приходит отчёт простым языком: что изменилось и что попробовать дальше. Цифры считает код, ИИ только объясняет их словами.</p>
+      <p>Через пару недель видно, что тревога растёт после коротких ночей или в дни с тремя кофе. Закономерности считаются по данным самого студента, а не по средним цифрам.</p>
     </div>
   </section>
 
   <section class="k L" data-k="h0">
     <div class="blk">
-      <div class="kick">Главная функция</div>
-      <div class="big">Как ты?</div>
-      <p>Часы видят то, что человек иногда не замечает сам: пульс заметно выше его нормы, хотя он сидит на месте. В этот момент Oriel спрашивает, всё ли в порядке.</p>
+      <div class="kick">Когда тяжело прямо сейчас</div>
+      <div class="big">Помощь</div>
+      <p>Кнопка в центре приложения. Без списков упражнений и длинных текстов: открыл, и через три минуты стало легче.</p>
     </div>
   </section>
 
-  <section class="k L" data-k="h1" data-screen="a19-notif">
+  <section class="k R" data-k="h1" data-screen="a16-breath">
     <div class="blk">
-      <div class="step">Помощь · 1 из 4</div>
-      <h3>Вопрос, а не тревожный сигнал</h3>
-      <p>Уведомление с тремя ответами: «Нужна помощь», «Была тренировка», «Всё нормально». Ответы учат систему, и со временем ложных срабатываний становится меньше.</p>
+      <div class="step">Помощь · 1 из 2</div>
+      <h3>Три минуты, чтобы выдохнуть</h3>
+      <p>Спокойная музыка и сфера из точек, которая дышит вместе с тобой. Медленный выдох снижает пульс за несколько минут. В конце один вопрос: «Легче?»</p>
     </div>
   </section>
 
-  <section class="k R" data-k="h2" data-screen="a16-breath">
+  <section class="k L" data-k="h2" data-screen="a17-breath-help">
     <div class="blk">
-      <div class="step">Помощь · 2 из 4</div>
-      <h3>Сначала дыхание</h3>
-      <p>«Нужна помощь» сразу открывает дыхательное упражнение. Сфера растёт на вдохе и сжимается на выдохе: 4 секунды вдох, 4 задержка, 6 выдох. Медленный выдох помогает снизить пульс за несколько минут.</p>
-    </div>
-  </section>
-
-  <section class="k L" data-k="h3" data-screen="a17-breath-help">
-    <div class="blk">
-      <div class="step">Помощь · 3 из 4</div>
+      <div class="step">Помощь · 2 из 2</div>
       <h3>Потом живые люди</h3>
-      <p>Сверху всегда есть строка «Позвать помощь». Она открывает линии психологической помощи той страны, где находится человек. Позвонить можно одним касанием.</p>
-    </div>
-  </section>
-
-  <section class="k R" data-k="h4" data-screen="m09-crisis">
-    <div class="blk">
-      <div class="step">Помощь · 4 из 4</div>
-      <h3>Решает всегда человек</h3>
-      <p>Oriel никогда не звонит сам и никому не передаёт данные. Функции помощи бесплатны для всех и навсегда, подписка на них не влияет.</p>
-    </div>
-  </section>
-
-  <section class="k L partners" data-k="partners">
-    <div class="blk">
-      <div class="kick">Партнёры</div>
-      <h2>Помощь работает, <span class="g">только если за ней стоят люди в каждой стране.</span></h2>
-      <p>В каждой стране свои линии помощи, свои номера, языки и часы работы. Мы хотим договориться с организациями, которые уже помогают людям, чтобы в Oriel был проверенный номер для каждой страны.</p>
-      <p class="note">Например, к таким линиям:</p>
-      <ul class="lines">
-        <li><span>США и Канада · 988</span><span>988</span></li>
-        <li><span>Великобритания · Samaritans</span><span>116 123</span></li>
-        <li><span>Германия · TelefonSeelsorge</span><span>0800 111 0 111</span></li>
-        <li><span>Франция</span><span>3114</span></li>
-        <li><span>Испания</span><span>024</span></li>
-        <li><span>Австралия · Lifeline</span><span>13 11 14</span></li>
-        <li><span>Бразилия · CVV</span><span>188</span></li>
-        <li><span>Индия · Tele-MANAS</span><span>14416</span></li>
-      </ul>
-      <p>Партнёр получает обращения в тот момент, когда помощь нужнее всего. Номер и часы работы в приложении всегда совпадают с настоящими.</p>
+      <p>Строка «Позвать помощь» видна всегда. Она открывает телефон доверия и контакты психологической службы своего вуза. Oriel не ставит диагнозов и не заменяет психолога, он помогает между встречами и приводит к нему тех, кому нужно.</p>
     </div>
   </section>
 
   <section class="k C wide princ" data-k="princ">
     <div class="blk">
-      <div class="kick">Почему это имеет смысл</div>
-      <h2>Не ещё один дневник настроения</h2>
+      <div class="kick">Для вуза</div>
+      <h2>Поддержка студентов, <span class="g">которая работает каждый день.</span></h2>
       <div class="cards">
-        <div class="card"><h4>Данные, а не только ощущения</h4><p>Сон и пульс с часов дополняют то, что человек отмечает сам. Тревогу видно в цифрах.</p></div>
-        <div class="card"><h4>Помощь в моменте</h4><p>Обычные трекеры показывают графики задним числом. Oriel реагирует, когда плохо прямо сейчас.</p></div>
-        <div class="card"><h4>Главное бесплатно</h4><p>Отметки, история за неделю, дыхание и линии помощи бесплатны. Подписка открывает полный анализ.</p></div>
-        <div class="card"><h4>Данные остаются у человека</h4><p>Мы не продаём данные и не показываем рекламу. Выгрузить или удалить всё можно в один шаг.</p></div>
+        <div class="card"><h4>Студенту</h4><p>Бесплатно, на любом телефоне. Понимать себя и иметь под рукой способ успокоиться.</p></div>
+        <div class="card"><h4>Психологу</h4><p>Помощник между встречами. Студенты, которым нужна помощь, приходят раньше.</p></div>
+        <div class="card"><h4>Вузу</h4><p>Анонимная картина по потоку: когда и отчего студентам тяжелее всего. Записи конкретного студента вуз не видит никогда.</p></div>
+        <div class="card"><h4>Данным</h4><p>До пилота переносим сервер в Россию, по 152-ФЗ. Без рекламы, данные не продаются и не идут на обучение чужих ИИ.</p></div>
       </div>
     </div>
   </section>
 
   <section class="k L roadmap" data-k="road" data-screen="o01-splash">
     <div class="blk">
-      <div class="kick">Где мы сейчас</div>
-      <h2>Дизайн готов. <span class="g">Начали сборку.</span></h2>
+      <div class="kick">Пилот</div>
+      <h2>Зимняя сессия. <span class="g">30–50 студентов, 8 недель.</span></h2>
       <ul class="road">
-        <li class="done"><span class="t">Готово</span><div><h4>Функционал и дизайн</h4><p>Продуманы все экраны, первая сборка уже запускается на iPhone.</p></div></li>
-        <li><span class="t">Этап 1</span><div><h4>Приложение для iOS и Android</h4><p>Отметки, Apple Health и Health Connect, прогноз дня, «Как ты?», дыхание, линии помощи.</p></div></li>
-        <li><span class="t">Этап 2</span><div><h4>Apple Watch</h4><p>Сигнал «Как ты?» в реальном времени, прямо на запястье.</p></div></li>
-        <li><span class="t">Этап 3</span><div><h4>Своя модель прогноза</h4><p>Обучена на обезличенных данных тех, кто дал согласие.</p></div></li>
-        <li><span class="t">Этап 4</span><div><h4>Сеть партнёров</h4><p>Проверенные линии помощи в каждой стране, где работает Oriel. Начинаем с США и Европы.</p></div></li>
+        <li class="done"><span class="t">Готово</span><div><h4>Рабочий прототип на iPhone</h4><p>Онбординг, тест-профиль тревоги, отметки, статистика, «Помощь». База данных и вход.</p></div></li>
+        <li><span class="t">Ноябрь</span><div><h4>Подготовка</h4><p>Интервью со студентами, психолог-консультант, сервер в России, экран согласия.</p></div></li>
+        <li><span class="t">Декабрь</span><div><h4>Старт пилота</h4><p>Студенты-добровольцы, часы не нужны. Тест тревожности GAD-7 в начале.</p></div></li>
+        <li><span class="t">Февраль</span><div><h4>Итоги</h4><p>GAD-7 в конце, сколько студентов пользуются через 2, 4 и 8 недель, анонимный отчёт для вуза.</p></div></li>
       </ul>
     </div>
   </section>
 
   <section class="k L grant" data-k="grant">
     <div class="blk">
-      <div class="kick">Грант</div>
-      <h2>На что пойдут деньги</h2>
+      <div class="kick">Модель</div>
+      <h2>Платит вуз, <span class="g">студенту бесплатно.</span></h2>
       <ul class="uses">
-        <li><h4>Разработка</h4><p>Приложение для iOS и Android, затем версия для Apple Watch.</p></li>
-        <li><h4>Линии помощи</h4><p>Проверка номеров, договорённости с организациями, переводы на языки этих стран.</p></li>
-        <li><h4>Клиническая экспертиза</h4><p>Консультации психологов: прогноз, тексты, сценарии помощи в кризисе.</p></li>
+        <li><h4>Лицензия для вуза</h4><p>300 ₽ за студента в год, по договору. Пилот бесплатный.</p></li>
+        <li><h4>Личная подписка</h4><p>Для тех, чей вуз ещё не подключён: 299 ₽ в месяц или 1 990 ₽ в год, через RuStore.</p></li>
+        <li><h4>Окупаемость</h4><p>Около 170 студентов по лицензии, это один поток одного факультета.</p></li>
       </ul>
     </div>
   </section>
@@ -294,8 +250,8 @@ a:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
   <section class="k C end" data-k="end">
     <div class="blk">
       <div class="big">Oriel</div>
-      <p class="lead">Окно во внутренний мир.</p>
-      <p class="foot">Oriel не является медицинским изделием и не ставит диагнозов. Если есть угроза жизни, звоните в экстренную службу своей страны. Экраны в презентации взяты из рабочего прототипа.</p>
+      <p class="lead">Ищем вуз для пилота на зимнюю сессию.</p>
+      <p class="foot">Команда: Артём и Виталий. Oriel не является медицинским изделием и не ставит диагнозов. Если есть угроза жизни, звоните 112. Экраны взяты из рабочего прототипа.</p>
     </div>
   </section>
 </main>
@@ -444,14 +400,10 @@ var ST={
   p2:Object.assign(S({sx:-1.45,ss:.5}),P({px:-1.45,pry:.42,prx:.02}),{th:0}),
   p3:Object.assign(S({sx:1.45,ss:.5}),P({pry:-.3,prx:-.06}),{th:0}),
   p4:Object.assign(S({sx:-1.45,ss:.5}),P({px:-1.45,pry:.36}),{th:0}),
-  p5:Object.assign(S({sx:1.45,ss:.5}),P({pry:-.4,prx:.08}),{th:0}),
   h0:Object.assign(S({sx:1.5,ss:.5}),P({px:1.5,pry:-.62,prx:.1,ps:1.18}),{th:0}),
-  h1:Object.assign(S({sx:1.45,ss:.5}),P({pry:-.26}),{th:0}),
-  h2:Object.assign(S({sx:-1.45,ss:.5}),P({px:-1.45,pry:.3}),{th:0}),
-  h3:Object.assign(S({sx:1.45,ss:.5}),P({pry:-.3,prx:-.04}),{th:0}),
-  h4:Object.assign(S({sx:-1.45,ss:.5}),P({px:-1.45,pry:.32}),{th:0}),
-  partners:Object.assign(S({sx:1.35,ss:1.2,land:1,sop:1,beac:1}),HID,{px:-1.4,th:1}),
-  princ:Object.assign(S({ss:2.5,land:1,sop:.16,beac:.25}),HID,{th:1}),
+  h1:Object.assign(S({sx:-1.45,ss:.5}),P({px:-1.45,pry:.3}),{th:0}),
+  h2:Object.assign(S({sx:1.45,ss:.5}),P({pry:-.3,prx:-.04}),{th:0}),
+  princ:Object.assign(S({ss:2.5,sop:.3}),HID,{th:1}),
   road:Object.assign(S({sx:1.5,ss:.5}),P({pry:-.52,prx:.1,ps:1.2}),{th:0}),
   grant:Object.assign(S({sx:1.6,ss:1,sop:.9}),HID,{px:1.5,th:0}),
   end:Object.assign(S({sy:.55,ss:1.05,sop:1}),HID,{th:0})
@@ -483,8 +435,7 @@ function stateFor(k){var s=Object.assign({},ST[k]);
   s.sy=(k==='hero'||k==='end')?.95:.7;s.ss*=.82;
   if(k==='mission')s.sy=0;
   if(k==='problem'||k==='grant'||k==='princ')s.sop*=.12;
-  if(k==='partners'){s.sop=0;s.beac=0;}
-  return s;}
+    return s;}
 function ss(a,b,x){x=Math.min(1,Math.max(0,(x-a)/(b-a)));return x*x*(3-2*x);}
 
 var PHY=.55,PHS=.8,cur={},start=performance.now(),last=start,lastTh=-1,lastBar=-1,docH=0,V=new THREE.Vector3(),bar=document.getElementById('bar'),maskEls=[].slice.call(document.querySelectorAll('.k.L .blk,.k.R .blk')),STILL=location.hash==='#still';
