@@ -48,6 +48,11 @@ form{background:var(--surface);border:1px solid var(--line);border-radius:22px;p
 .q .lbl small{color:var(--ink3)}
 .q .lbl{color:var(--ink);font-weight:500;font-size:15px}
 .hint{font-size:13px;color:var(--ink3);margin-top:-4px;max-width:62ch}
+.memolink{display:flex;justify-content:space-between;align-items:center;gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:18px 22px;color:var(--ink);text-decoration:none;font-size:22px}
+.memolink span:first-child{display:flex;flex-direction:column;gap:4px}
+.memolink b{font-family:var(--display);font-weight:600;font-size:20px;letter-spacing:-.02em}
+.memolink small{font-size:14px;color:var(--ink2)}
+.memolink:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 .memo{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:4px 22px}
 .memo summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;padding:16px 0;font-family:var(--display);font-weight:600;font-size:20px;letter-spacing:-.02em}
 .memo summary::-webkit-details-marker{display:none}
@@ -109,33 +114,7 @@ td .del.arm{color:var(--bg);background:var(--ink)}
     <div class="stat"><b id="s-free">–</b><span>готовы только бесплатно</span></div>
   </section>
 
-  <details class="memo" id="memo" open>
-    <summary>Памятка по опросу</summary>
-    <div class="memo-body">
-      <div>
-        <h3>Как начать</h3>
-        <p><b>«Привет! Мы студенты, делаем приложение про стресс на учёбе. Можно минуту? Анонимно, имя не нужно».</b></p>
-        <p>Один спрашивает и держит iPad, второй слушает и ловит цитаты. Цель на 28.10: 30+ анкет и 8–10 разговоров подлиннее.</p>
-      </div>
-      <div>
-        <h3>Как спрашивать</h3>
-        <ul>
-          <li>Спрашивай про прошлый раз, а не «в целом». Так ответы честнее.</li>
-          <li>Не подсказывай нужный ответ и не рассказывай про Oriel до вопроса «Стал бы пользоваться».</li>
-          <li>Если на вопрос нет ответа, пропускай: неполную анкету тоже можно сохранить.</li>
-          <li>Яркую фразу запиши дословно в «Цитату». Одна живая цитата на слайде сильнее процентов.</li>
-        </ul>
-      </div>
-      <div>
-        <h3>В конце</h3>
-        <ul>
-          <li>Покажи приложение на телефоне и спроси реакцию, запиши в заметку.</li>
-          <li>Предложи оставить телеграм для бета-теста. Число людей в листе ожидания для жюри важнее всего.</li>
-          <li>Если человеку по-настоящему плохо, не продолжай опрос. Дай телефон доверия <b style="white-space:nowrap">8 800 2000 122</b> (бесплатно) и подскажи психологическую службу вуза.</li>
-        </ul>
-      </div>
-    </div>
-  </details>
+  <a class="memolink" href="memo.html"><span><b>Памятка по опросу</b><small>Как начать, 11 вопросов по порядку и что сказать в конце</small></span><span aria-hidden="true">→</span></a>
 
   <form id="f" autocomplete="off">
     <div class="formhead"><h2 id="formtitle">Новая анкета</h2><span class="status">Серым под вопросом написано, как его задать</span></div>
