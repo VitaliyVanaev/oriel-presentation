@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Анкета студентов</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: iPad tool. Top: live counts for the pitch slide. Middle: one respondent as rows of big chips, saved with one button. Bottom: every saved answer as a table. Monochrome like Oriel. */
+:root{
+  --bg:#050506; --surface:#111113; --ink:#f5f5f7; --ink2:rgba(245,245,247,.62); --ink3:rgba(245,245,247,.34); --line:rgba(245,245,247,.13); --chip:rgba(245,245,247,.06);
+  --display:-apple-system,"SF Pro Display",BlinkMacSystemFont,"Inter Tight","Helvetica Neue",Arial,sans-serif;
+  --text:-apple-system,"SF Pro Text",BlinkMacSystemFont,"Inter Tight","Helvetica Neue",Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){--bg:#f5f5f7;--surface:#ffffff;--ink:#0b0b0c;--ink2:rgba(11,11,12,.62);--ink3:rgba(11,11,12,.36);--line:rgba(11,11,12,.12);--chip:rgba(11,11,12,.04);color-scheme:light}}
+:root[data-theme="light"]{--bg:#f5f5f7;--surface:#ffffff;--ink:#0b0b0c;--ink2:rgba(11,11,12,.62);--ink3:rgba(11,11,12,.36);--line:rgba(11,11,12,.12);--chip:rgba(11,11,12,.04);color-scheme:light}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--text);font-size:16px;line-height:1.4;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:flex;flex-direction:column;gap:28px}
+.kick{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3)}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(30px,4vw,44px);letter-spacing:-.035em;line-height:1;margin:6px 0 0;text-wrap:balance}
+h1 .g{color:var(--ink3)}
+h2{font-family:var(--display);font-weight:600;font-size:22px;letter-spacing:-.02em;margin:0}
+header .brandcol{display:flex;flex-direction:column;gap:10px}
+.brand{display:flex;align-items:center;gap:12px;font-family:var(--display);font-weight:600;font-size:24px;letter-spacing:-.03em}
+.brand canvas{width:44px;height:44px;display:block}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px}
+.status{font-family:var(--mono);font-size:12px;color:var(--ink3)}
+
+.stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.stat{background:var(--surface);padding:16px 18px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.stat b{font-family:var(--display);font-size:34px;font-weight:600;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.stat span{font-size:13px;color:var(--ink2)}
+
+form{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:20px}
+.formhead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.qs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 28px}
+.q{display:flex;flex-direction:column;gap:10px;min-width:0}
+.q.full{grid-column:1/-1}
+.q label,.q .lbl{font-size:14px;color:var(--ink2)}
+.q .lbl small{color:var(--ink3)}
+.q .lbl{color:var(--ink);font-weight:500;font-size:15px}
+.hint{font-size:13px;color:var(--ink3);margin-top:-4px;max-width:62ch}
+.memo{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:4px 22px}
+.memo summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;padding:16px 0;font-family:var(--display);font-weight:600;font-size:20px;letter-spacing:-.02em}
+.memo summary::-webkit-details-marker{display:none}
+.memo summary::after{content:"Показать";font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+.memo[open] summary::after{content:"Скрыть"}
+.memo-body{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px 28px;padding:4px 0 22px}
+.memo-body div{display:flex;flex-direction:column;gap:8px;min-width:0}
+.memo-body h3{margin:0;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);font-weight:500}
+.memo-body p,.memo-body li{font-size:15px;color:var(--ink2);margin:0}
+.memo-body ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
+.memo-body b{color:var(--ink);font-weight:600}
+@media (max-width:900px){.memo-body{grid-template-columns:minmax(0,1fr)}}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{all:unset;box-sizing:border-box;cursor:pointer;min-height:44px;padding:10px 16px;border-radius:22px;border:1px solid var(--line);background:var(--chip);font-size:15px;display:inline-flex;align-items:center;transition:background .15s,color .15s,border-color .15s}
+.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip:focus-visible,.btn:focus-visible,input:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+input[type=text]{width:100%;height:48px;padding:0 16px;border-radius:14px;border:1px solid var(--line);background:var(--chip);color:var(--ink);font:inherit;font-size:16px}
+input::placeholder{color:var(--ink3)}
+.actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.btn{all:unset;box-sizing:border-box;cursor:pointer;height:52px;padding:0 28px;border-radius:26px;background:var(--ink);color:var(--bg);font-family:var(--display);font-weight:600;font-size:17px;display:inline-flex;align-items:center}
+.btn.ghost{background:transparent;color:var(--ink2);border:1px solid var(--line)}
+.btn[disabled]{opacity:.3;cursor:default}
+.msg{font-size:14px;color:var(--ink2)}
+
+.tablebox{overflow-x:auto;border:1px solid var(--line);border-radius:18px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:1100px;font-size:14px}
+th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);font-weight:500;white-space:nowrap;position:sticky;top:0;background:var(--surface)}
+td{color:var(--ink2)}
+td.n{font-family:var(--mono);color:var(--ink3);font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:0}
+td .del{all:unset;cursor:pointer;color:var(--ink3);font-size:13px;padding:4px 6px;border-radius:8px}
+td .del.arm{color:var(--bg);background:var(--ink)}
+.copybox{display:flex;flex-direction:column;gap:10px}
+.copybox p{margin:0;font-size:14px;color:var(--ink2);max-width:70ch}
+#dump{width:100%;height:160px;border-radius:14px;border:1px solid var(--line);background:var(--chip);color:var(--ink2);font:12px var(--mono);padding:12px}
+.empty{padding:28px;text-align:center;color:var(--ink3)}
+@media (max-width:760px){.qs{grid-template-columns:minmax(0,1fr)}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.stats .stat:first-child{grid-column:1/-1}}
+@media (prefers-reduced-motion:reduce){.chip{transition:none}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="brandcol">
+      <div class="brand"><canvas id="logo" aria-hidden="true"></canvas><span>Oriel</span></div>
+      <div class="kick">ПедТех · 28–30.10</div>
+      <h1 style="margin-top:0">Анкета студентов <span class="g">на iPad</span></h1>
+    </div>
+    <div class="status" id="status">Подключаюсь к базе…</div>
+  </header>
+
+  <section class="stats" aria-label="Итоги">
+    <div class="stat"><b id="s-n">0</b><span>анкет заполнено</span></div>
+    <div class="stat"><b id="s-anx">–</b><span>тревожатся каждую неделю или чаще</span></div>
+    <div class="stat"><b id="s-sleep">–</b><span>спят в сессию меньше 6 часов</span></div>
+    <div class="stat"><b id="s-use">–</b><span>стали бы пользоваться (да или возможно)</span></div>
+    <div class="stat"><b id="s-free">–</b><span>готовы только бесплатно</span></div>
+  </section>
+
+  <details class="memo" id="memo" open>
+    <summary>Памятка по опросу</summary>
+    <div class="memo-body">
+      <div>
+        <h3>Как начать</h3>
+        <p><b>«Привет! Мы студенты, делаем приложение про стресс на учёбе. Можно минуту? Анонимно, имя не нужно».</b></p>
+        <p>Один спрашивает и держит iPad, второй слушает и ловит цитаты. Цель на 28.10: 30+ анкет и 8–10 разговоров подлиннее.</p>
+      </div>
+      <div>
+        <h3>Как спрашивать</h3>
+        <ul>
+          <li>Спрашивай про прошлый раз, а не «в целом». Так ответы честнее.</li>
+          <li>Не подсказывай нужный ответ и не рассказывай про Oriel до вопроса «Стал бы пользоваться».</li>
+          <li>Если на вопрос нет ответа, пропускай: неполную анкету тоже можно сохранить.</li>
+          <li>Яркую фразу запиши дословно в «Цитату». Одна живая цитата на слайде сильнее процентов.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>В конце</h3>
+        <ul>
+          <li>Покажи приложение на телефоне и спроси реакцию, запиши в заметку.</li>
+          <li>Предложи оставить телеграм для бета-теста. Число людей в листе ожидания для жюри важнее всего.</li>
+          <li>Если человеку по-настоящему плохо, не продолжай опрос. Дай телефон доверия <b style="white-space:nowrap">8 800 2000 122</b> (бесплатно) и подскажи психологическую службу вуза.</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+
+  <form id="f" autocomplete="off">
+    <div class="formhead"><h2 id="formtitle">Новая анкета</h2><span class="status">Серым под вопросом написано, как его задать</span></div>
+    <div class="qs" id="qs"></div>
+    <div class="actions">
+      <button class="btn" id="save" type="submit">Сохранить</button>
+      <button class="btn ghost" id="clear" type="button">Очистить</button>
+      <span class="msg" id="msg" role="status"></span>
+    </div>
+  </form>
+
+  <section style="display:flex;flex-direction:column;gap:12px">
+    <h2>Все ответы</h2>
+    <div id="copybox" class="copybox" hidden>
+      <p>Ответы хранятся только на этом iPad. В конце каждого дня нажми кнопку и пришли текст Claude, чтобы ничего не потерялось.</p>
+      <div class="actions"><button class="btn ghost" id="copy" type="button">Скопировать все ответы</button><span class="msg" id="copymsg" role="status"></span></div>
+      <textarea id="dump" hidden readonly aria-label="Все ответы текстом"></textarea>
+    </div>
+    <div class="tablebox"><table><thead><tr id="thead"></tr></thead><tbody id="tbody"><tr><td class="empty" colspan="15">Здесь появятся сохранённые анкеты. Заполни первую сверху.</td></tr></tbody></table></div>
+  </section>
+</div>
+
+<script>
+const Q = [
+  {k:"course", h:'«На каком ты курсе?» Если из колледжа или школы, отметь ближайшее и напиши в заметке.', t:"Курс", o:["1","2","3","4","5","Магистратура","Аспирантура"]},
+  {k:"anxiety_freq", h:'«Как часто учёба тебя сильно тревожит?» Не подсказывай варианты сразу, дай ответить своими словами, потом уточни.', t:"Как часто сильная тревога из-за учёбы", o:["Почти никогда","Только в сессию","Пару раз в месяц","Каждую неделю","Почти каждый день"]},
+  {k:"triggers", h:'«Из-за чего чаще всего?» Пусть назовёт сам, потом можно перечислить остальное.', t:"Что тревожит чаще всего", multi:true, o:["Экзамены","Выступления","Дедлайны","Деньги","Отношения","Будущее и работа","Другое"]},
+  {k:"study_impact", h:'«Было, что из-за волнения хуже подготовился или сдал экзамен?» Если да, попроси вспомнить случай и запиши в цитату.', t:"Тревога мешала готовиться или сдавать", o:["Нет","Было пару раз","Часто"]},
+  {k:"sleep", h:'«Сколько спишь в сессию, по-честному?» Спрашивай про прошлую сессию, а не «обычно».', t:"Сон в сессию", o:["Меньше 5 ч","5–6 ч","7–8 ч","Больше 8 ч"]},
+  {k:"coping", h:'«Что ты делаешь, когда накрывает?» Ответ «листаю соцсети» тоже ответ, не оценивай.', t:"Что делает, когда тревожно", multi:true, o:["Ничего, терплю","Соцсети","Близкие","Спорт","Музыка","Дыхание","Психолог","Другое"]},
+  {k:"psychologist", h:'«Ходил к психологу в вузе?» Если нет, спроси почему и запиши причину в заметку.', t:"Обращался к психологу вуза", o:["Да","Нет, не знал о нём","Нет, неловко","Нет, не нужно"]},
+  {k:"watch", h:'«Носишь часы или браслет?» Важно для слайда: приложение работает и без них.', t:"Смарт-часы или браслет", o:["Да, постоянно","Да, иногда","Нет"]},
+  {k:"apps_tried", h:'«Пробовал приложения для настроения, сна или медитации?» Если бросил, спроси почему: это ответ, чем Oriel должен отличаться.', t:"Пробовал приложения для настроения или медитации", o:["Нет","Пробовал и бросил","Пользуюсь сейчас"]},
+  {k:"would_use", h:'Сначала опиши одной фразой: «утром показывает, каким будет день, и помогает успокоиться за 3 минуты». Покажи приложение после ответа, не до.', t:"Стал бы пользоваться приложением, которое предупреждает о тяжёлом дне и помогает успокоиться", o:["Да","Возможно","Нет"]},
+  {k:"price", h:'«Если бы это стоило денег, сколько отдал бы в месяц?» Если «только бесплатно», спроси: «а если платит вуз?»', t:"Сколько готов платить", o:["Только бесплатно","До 199 ₽/мес","200–399 ₽/мес","400 ₽ и больше"]},
+];
+const TEXT = [
+  {k:"contact", t:"Телеграм или почта, если хочет попробовать первым", ph:"@username или почта"},
+  {k:"note", t:"Цитата или заметка", ph:"Что сказал своими словами"},
+];
+let A = blank(), rows = [], db = null, armed = null;
+const $ = id => document.getElementById(id);
+function blank(){ const a = {}; Q.forEach(q => a[q.k] = q.multi ? [] : null); TEXT.forEach(t => a[t.k] = ""); return a; }
+
+// Form: chip rows built once; state lives in A, chips only mirror it.
+$("qs").innerHTML = Q.map(q => `<div class="q" role="${q.multi ? "group" : "radiogroup"}" aria-label="${q.t}">
+  <div class="lbl">${q.t}${q.multi ? " <small>· несколько</small>" : ""}</div>
+  <div class="hint">${q.h}</div>
+  <div class="chips">${q.o.map(v => `<button type="button" class="chip" data-k="${q.k}" data-v="${v}" role="${q.multi ? "checkbox" : "radio"}" aria-checked="false">${v}</button>`).join("")}</div>
+</div>`).join("") + TEXT.map(t => `<div class="q ${t.k === "note" ? "full" : ""}"><label for="in-${t.k}">${t.t}</label><input type="text" id="in-${t.k}" maxlength="300" placeholder="${t.ph}"></div>`).join("");
+
+$("qs").addEventListener("click", e => {
+  const b = e.target.closest(".chip"); if (!b) return;
+  const q = Q.find(x => x.k === b.dataset.k), v = b.dataset.v;
+  if (q.multi) { const i = A[q.k].indexOf(v); i < 0 ? A[q.k].push(v) : A[q.k].splice(i, 1); }
+  else A[q.k] = A[q.k] === v ? null : v;
+  paintChips(); $("msg").textContent = "";
+});
+function paintChips(){
+  document.querySelectorAll(".chip").forEach(b => {
+    const val = A[b.dataset.k], on = Array.isArray(val) ? val.includes(b.dataset.v) : val === b.dataset.v;
+    b.classList.toggle("on", on); b.setAttribute("aria-checked", on);
+  });
+}
+function resetForm(){ A = blank(); paintChips(); TEXT.forEach(t => $("in-" + t.k).value = ""); window.scrollTo({top: $("f").offsetTop - 12, behavior: "smooth"}); }
+$("clear").onclick = () => { resetForm(); $("msg").textContent = ""; };
+
+$("f").addEventListener("submit", async e => {
+  e.preventDefault();
+  TEXT.forEach(t => A[t.k] = $("in-" + t.k).value.trim());
+  const answered = Q.filter(q => q.multi ? A[q.k].length : A[q.k]).length;
+  if (!answered) { $("msg").textContent = "Отметь хотя бы один ответ."; return; }
+  const num = rows.length + 1;
+  $("save").disabled = true; $("msg").textContent = "Сохраняю…";
+  try {
+    await store.add({...A, createdAt: new Date().toISOString()});
+    $("msg").textContent = `Сохранено. Анкета №${num}.`;
+    resetForm();
+  } catch (err) {
+    $("msg").textContent = "Не сохранилось: " + (err && err.message || "ошибка сети") + ". Нажми «Сохранить» ещё раз.";
+  } finally { $("save").disabled = false; }
+});
+
+// Table and summary
+const COLS = [["n","№"],["time","Время"],...Q.map(q => [q.k, q.t.split(",")[0].replace(/^Стал бы пользоваться.*/, "Стал бы")]),["contact","Контакт"],["note","Заметка"],["del",""]];
+$("thead").innerHTML = COLS.map(c => `<th>${c[1]}</th>`).join("");
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function render(){
+  $("tbody").innerHTML = rows.length ? rows.map((r, i) => {
+    const d = r.data, t = d.createdAt ? new Date(d.createdAt) : null;
+    return `<tr>${COLS.map(([k]) => {
+      if (k === "n") return `<td class="n">${rows.length - i}</td>`;
+      if (k === "time") return `<td class="n">${t ? t.toLocaleString("ru-RU", {day:"2-digit", month:"2-digit", hour:"2-digit", minute:"2-digit"}) : ""}</td>`;
+      if (k === "del") return `<td><button class="del ${armed === r.id ? "arm" : ""}" data-id="${r.id}">${armed === r.id ? "Точно удалить?" : "Удалить"}</button></td>`;
+      const v = d[k]; return `<td>${esc(Array.isArray(v) ? v.join(", ") : v)}</td>`;
+    }).join("")}</tr>`;
+  }).join("") : `<tr><td class="empty" colspan="${COLS.length}">Здесь появятся сохранённые анкеты. Заполни первую сверху.</td></tr>`;
+  const n = rows.length, D = rows.map(r => r.data);
+  const pct = f => { const m = D.filter(x => x[f.k] != null && (!Array.isArray(x[f.k]) || x[f.k].length)); return m.length ? Math.round(m.filter(f.ok).length / m.length * 100) + "%" : "–"; };
+  $("s-n").textContent = n;
+  $("s-anx").textContent = pct({k:"anxiety_freq", ok: x => ["Каждую неделю","Почти каждый день"].includes(x.anxiety_freq)});
+  $("s-sleep").textContent = pct({k:"sleep", ok: x => ["Меньше 5 ч","5–6 ч"].includes(x.sleep)});
+  $("s-use").textContent = pct({k:"would_use", ok: x => x.would_use !== "Нет"});
+  $("s-free").textContent = pct({k:"price", ok: x => x.price === "Только бесплатно"});
+}
+$("tbody").addEventListener("click", async e => {
+  const b = e.target.closest(".del"); if (!b) return;
+  if (armed !== b.dataset.id) { armed = b.dataset.id; render(); return; }
+  armed = null;
+  try { await store.remove(b.dataset.id); } catch (err) { $("msg").textContent = "Не удалось удалить: " + (err && err.message || "ошибка"); render(); }
+});
+
+// Logo: Fibonacci dot sphere, straight-on, no tilt; depth shown only by opacity and size (per the approved logo brief).
+(function logo(){
+  const cv = $("logo"), ctx = cv.getContext("2d"), dpr = Math.min(3, devicePixelRatio || 1), N = 700, P = [];
+  for (let n = 0; n < N; n++) { const y = 1 - (n + .5) / N * 2, r = Math.sqrt(1 - y*y), a = n * 2.399963; P.push([Math.cos(a)*r, y, Math.sin(a)*r]); }
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function frame(now){
+    const s = cv.clientWidth * dpr; if (cv.width !== s) cv.width = cv.height = s;
+    const ink = getComputedStyle(document.body).color, R = s * .46, c = s / 2, t = still ? 0 : now / 14000, ca = Math.cos(t), sa = Math.sin(t);
+    ctx.clearRect(0, 0, s, s); ctx.fillStyle = ink;
+    for (const [x, y, z] of P) {
+      const x1 = x*ca + z*sa, z1 = -x*sa + z*ca, d = (z1 + 1) / 2;
+      if (d < .35) continue;
+      ctx.globalAlpha = Math.pow(d, 2.2);
+      ctx.beginPath(); ctx.arc(c + x1*R, c + y*R, (.35 + d*.75) * dpr, 0, 6.283); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    if (!still) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+
+// Storage: inside claude.ai the artifact db (shared, Claude reads it); anywhere else (GitHub Pages) this iPad's own storage, with a copy button to hand the answers over.
+const KEY = "oriel-survey-v1";
+const local = {
+  read(){ try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch { return []; } },
+  write(list){ localStorage.setItem(KEY, JSON.stringify(list)); },
+};
+let store = {
+  async add(d){ const list = local.read(); list.unshift({id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6), data: d}); local.write(list); rows = list; render(); },
+  async remove(id){ const list = local.read().filter(r => r.id !== id); local.write(list); rows = list; render(); },
+};
+function startLocal(){
+  try { localStorage.setItem(KEY + "-probe", "1"); localStorage.removeItem(KEY + "-probe"); }
+  catch { $("status").textContent = "Браузер не даёт сохранять. Выключи режим «Частный доступ» в Safari."; return; }
+  rows = local.read(); render();
+  $("status").textContent = "Сохраняется на этом iPad";
+  $("copybox").hidden = false;
+}
+$("copy").onclick = async () => {
+  const text = JSON.stringify(local.read().map(r => r.data), null, 1);
+  try { await navigator.clipboard.writeText(text); $("copymsg").textContent = `Скопировано анкет: ${rows.length}. Вставь в чат с Claude.`; }
+  catch { $("dump").hidden = false; $("dump").value = text; $("dump").select(); $("copymsg").textContent = "Выдели текст ниже и скопируй вручную."; }
+};
+
+(async () => {
+  db = window.claude && window.claude.use ? await window.claude.use("db") : null;
+  if (!db) return startLocal();
+  store = {
+    add: d => db.collection("responses").add(d),
+    remove: id => db.collection("responses").doc(id).delete(),
+  };
+  $("status").textContent = "Сохраняется в облако";
+  db.collection("responses").orderBy("createdAt", "desc").onSnapshot(
+    s => { rows = s.docs.map(d => ({id: d.id, data: d.data() || {}})); render(); },
+    err => { $("status").textContent = "Ошибка базы: " + err.message; }
+  );
+})();
+</script>
+</body>
+</html>
